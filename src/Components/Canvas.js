@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import roundToNearest from '../Helpers/roundingHelper'
 
 class Canvas extends Component   {
 
     componentDidMount= () =>    {
-        
+        this.props.setContext(this.refs.canvas.getContext('2d'))
         this.updateCanvas()
     }
 
@@ -21,6 +22,13 @@ class Canvas extends Component   {
         
     }
 
+    drawOnScreen= (position) => {
+        console.log("x:", position.x.roundTo(24))
+        console.log("y:", position.y.roundTo(24))
+        this.props.pushHistory(position)
+        this.props.context.fillRect(position.x.roundTo(24), position.y.roundTo(24), 24, 24)
+    }
+
     // var canvas = document.getElementById('myCanvas');
     // var context = canvas.getContext('2d');
 
@@ -31,7 +39,7 @@ class Canvas extends Component   {
             height={"800px"} 
             width={"800px"} 
             style={{ border: "1px solid black" }}
-            onClick={(e) => this.props.pushHistory(this.getMousePosition(e))}
+            onMouseDown={(e) => this.drawOnScreen(this.getMousePosition(e))}
             ></canvas>
         )
     }
@@ -57,4 +65,19 @@ const mapDispatchToProps= (dispatch) =>   {
     }
 }
 
-export default connect(null, mapDispatchToProps)(Canvas)
+const mapStateToProps= (state) => {
+    return {
+        context: state.context
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Canvas)
+
+Number.prototype.roundTo = function (num) {
+    var remainder = this % num;
+    if (remainder <= (num / 2)) {
+        return this - remainder;
+    } else {
+        return this + num - remainder - 24;
+    }
+}

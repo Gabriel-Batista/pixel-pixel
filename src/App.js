@@ -23,7 +23,7 @@ class App extends Component {
                         </Segment>
                     </Grid.Column>
 
-                    <Grid.Column stretched>
+                    <Grid.Column >
                             <Canvas></Canvas>
                         <Segment>
                             <div>FRAMES</div>
