@@ -5,6 +5,7 @@ import Canvas from './Components/Canvas'
 
 import _ from 'lodash'
 import { Grid, Segment } from 'semantic-ui-react'
+import roundToNearest from './Helpers/roundingHelper'
 
 class App extends Component {
 

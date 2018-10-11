@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import roundToNearest from '../Helpers/roundingHelper'
+
 
 class Canvas extends Component   {
 
@@ -73,11 +73,11 @@ const mapStateToProps= (state) => {
 
 export default connect(mapStateToProps, mapDispatchToProps)(Canvas)
 
-Number.prototype.roundTo = function (num) {
-    var remainder = this % num;
-    if (remainder <= (num / 2)) {
-        return this - remainder;
-    } else {
-        return this + num - remainder - 24;
-    }
-}
+// Number.prototype.roundTo = function (num) {
+//     var remainder = this % num;
+//     if (remainder <= (num / 2)) {
+//         return this - remainder;
+//     } else {
+//         return this + num - remainder - 24;
+//     }
+// }

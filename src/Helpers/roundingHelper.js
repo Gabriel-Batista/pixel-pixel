@@ -1,10 +1,9 @@
-const roundToNearest= (nearest, num) => {
-    var resto = nearest % num;
-    if (resto <= (num / 2)) {
-        return nearest - resto;
+Number.prototype.roundTo = function (num) {
+    var remainder = this % num;
+    if (remainder <= (num / 2)) {
+        return this - remainder;
     } else {
-        return nearest + num - resto;
+        return this + num - remainder - 24;
     }
 }
 
-export default roundToNearest
