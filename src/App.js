@@ -1,28 +1,44 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
+import _ from 'lodash'
+import { Grid, Image, Segment } from 'semantic-ui-react'
+
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+
+
+    render() {
+        return (
+            <Grid columns='equal' style={{margin:"100px"}}>
+                <Grid.Row>
+                    <Grid.Column width={3}>
+                        <Segment>
+                            <div>LOGO</div>
+                        </Segment>
+                        <Segment>
+                            <div>TOOLBOX</div>
+                        </Segment>
+                    </Grid.Column>
+
+                    <Grid.Column stretched>
+                            <canvas height={"600px"} width={"800px"} style={{ border: "1px solid black" }}></canvas>
+                        <Segment>
+                            <div>FRAMES</div>
+                        </Segment>
+                    </Grid.Column>
+
+                    <Grid.Column width={3}>
+                        <Segment>
+                            <div>PREVIEW</div>
+                        </Segment>
+                        <Segment>
+                            <div>LAYERS</div>
+                        </Segment>
+                    </Grid.Column>
+                </Grid.Row>
+            </Grid>
+        );
+    }
 }
 
 export default App;
