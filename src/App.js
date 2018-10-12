@@ -21,6 +21,7 @@ class App extends Component {
                         </Segment>
                         <Segment>
                             <div>TOOLBOX</div>
+                            <ToolBox></ToolBox>
                         </Segment>
                     </Grid.Column>
 

@@ -1,7 +1,7 @@
 const defaultState = {
     draw: null,
     erase: null,
-    currentTool: 'draw'
+    currentTool: 'brush'
 }
 
 const ToolsReducer = (state= defaultState, action) =>  {
