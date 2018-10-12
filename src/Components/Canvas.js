@@ -72,9 +72,13 @@ class Canvas extends Component   {
 
 
     render()    {
-        if (this.props.context !== null && this.props.grid === true) {
-            this.drawGrid()
+        if (this.props.context !== null)    {
+            this.props.gridContext.clearRect(0, 0, this.props.canvasWidth, this.props.canvasHeight)
+            if (this.props.grid === true) {
+                this.drawGrid()
+            }
         }
+        
         return  (
             <React.Fragment>
                 <canvas 
