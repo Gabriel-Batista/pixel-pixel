@@ -7,9 +7,18 @@ import * as serviceWorker from './serviceWorker';
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 
-import rootReducer from './Reducers/rootReducer'
+import ToolsReducer from './Reducers/ToolsReducer'
+import CanvasReducer from './Reducers/CanvasReducer'
+import HistoryReducer from './Reducers/HistoryReducer'
+import { combineReducers } from "redux";
 
-const store = createStore(rootReducer,
+const rootReducer = combineReducers({
+    canvas: CanvasReducer,
+    history: HistoryReducer,
+    tools: ToolsReducer
+});
+
+export const store = createStore(rootReducer,
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 
 ReactDOM.render(

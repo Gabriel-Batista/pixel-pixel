@@ -1,11 +1,23 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
+import { getMousePosition } from '../Helpers/MouseTracker'
+import { getTool } from '../Helpers/Tools'
+
 
 class Canvas extends Component   {
+    constructor(props)  {
+        super(props)
+        this.canvasRef = React.createRef()
+        this.props.setCanvasRef(this.canvasRef)
+    }
+
+    
 
     componentDidMount= () =>    {
-        this.props.setContext(this.refs.canvas.getContext('2d'))
+        console.log(this.refs)
+        console.log(this.canvasRef)
+        this.props.setContext(this.canvasRef.current.getContext('2d'))
         this.updateCanvas()
     }
 
@@ -13,34 +25,50 @@ class Canvas extends Component   {
         //Redraw canvas screen
     }
 
-    getMousePosition= (e) => {
-        let rect = this.refs.canvas.getBoundingClientRect();
-        return {
-            x: Math.round(e.clientX - rect.left),
-            y: Math.round(e.clientY - rect.top)
+
+
+    drawGrid= () =>  {
+        const width = this.canvasRef.current.width
+        const height = this.canvasRef.current.height
+
+        console.log("width:", width)
+        console.log("height:", height)
+        this.props.context.beginPath()
+        for (let x = 0; x <= width; x += this.props.pixelSize) {
+            this.props.context.moveTo(x, 0);
+            this.props.context.lineTo(x, height);
         }
-        
+
+        for (let y = 0; y <= height; y += this.props.pixelSize) {
+            this.props.context.moveTo(0, y);
+            this.props.context.lineTo(width, y);
+        }
+
+        this.props.context.stroke();
     }
 
     drawOnScreen= (position) => {
-        console.log("x:", position.x.roundTo(24))
-        console.log("y:", position.y.roundTo(24))
-        this.props.pushHistory(position)
-        this.props.context.fillRect(position.x.roundTo(24), position.y.roundTo(24), 24, 24)
+        console.log("x:", position.x.roundTo(this.props.pixelSize))
+        console.log("y:", position.y.roundTo(this.props.pixelSize))
+        this.props.pushHistory({ x: position.x.roundTo(this.props.pixelSize), y: position.y.roundTo(this.props.pixelSize)})
+        this.props.context.fillRect(position.x.roundTo(this.props.pixelSize), position.y.roundTo(this.props.pixelSize), this.props.pixelSize, this.props.pixelSize)
     }
 
-    // var canvas = document.getElementById('myCanvas');
-    // var context = canvas.getContext('2d');
-
     render()    {
+        console.log(this.props)
+        if (this.props.context !== null) {
+            this.drawGrid()
+        }
         return  (
-            <canvas 
-            ref="canvas" 
-            height={"800px"} 
-            width={"800px"} 
-            style={{ border: "1px solid black" }}
-            onMouseDown={(e) => this.drawOnScreen(this.getMousePosition(e))}
-            ></canvas>
+            <React.Fragment>
+                <canvas 
+                ref={this.canvasRef} 
+                height={"816px"} 
+                width={"816px"}
+                style={{ border: "1px solid black" }}
+                onMouseDown={(e) => getTool()(getMousePosition(e))}
+                ></canvas>
+            </React.Fragment>
         )
     }
 }
@@ -61,23 +89,21 @@ const mapDispatchToProps= (dispatch) =>   {
                 type: 'PUSH_HISTORY',
                 payload: payload
             })
+        },
+        setCanvasRef: (payload) => {
+            dispatch({
+                type: 'SET_CANVAS_REF',
+                payload: payload
+            })
         }
     }
 }
 
 const mapStateToProps= (state) => {
     return {
-        context: state.context
+        context: state.canvas.context,
+        pixelSize: state.canvas.pixelSize
     }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Canvas)
-
-// Number.prototype.roundTo = function (num) {
-//     var remainder = this % num;
-//     if (remainder <= (num / 2)) {
-//         return this - remainder;
-//     } else {
-//         return this + num - remainder - 24;
-//     }
-// }

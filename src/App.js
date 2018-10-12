@@ -5,14 +5,18 @@ import Canvas from './Components/Canvas'
 
 import _ from 'lodash'
 import { Grid, Segment } from 'semantic-ui-react'
-import roundToNearest from './Helpers/roundingHelper'
+<<<<<<< Updated upstream
+import roundToNearest from './Helpers/RoundingHelper'
+=======
+import roundTo from './Helpers/RoundingHelper'
+>>>>>>> Stashed changes
 
 class App extends Component {
 
 
     render() {
         return (
-            <Grid  style={{ marginTop: "auto" }} centered columns={2}>
+            <Grid  style={{ marginTop: "auto" }} centered columns={3}>
                 <Grid.Row centered>
 
                     <Grid.Column width={3}>
@@ -25,7 +29,9 @@ class App extends Component {
                     </Grid.Column>
 
                     <Grid.Column >
+                        <Segment>
                             <Canvas></Canvas>
+                        </Segment>
                         <Segment>
                             <div>FRAMES</div>
                         </Segment>
