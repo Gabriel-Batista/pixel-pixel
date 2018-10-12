@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 
 import Canvas from './Components/Canvas'
+import ToolBox from './Components/ToolBox'
 
 import _ from 'lodash'
 import { Grid, Segment } from 'semantic-ui-react'
@@ -26,7 +27,7 @@ class App extends Component {
                     </Grid.Column>
 
                     <Grid.Column >
-                        <Segment>
+                        <Segment style={{ position: "relative" }}>
                             <Canvas></Canvas>
                         </Segment>
                         <Segment>

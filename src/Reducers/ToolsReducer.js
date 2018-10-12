@@ -1,13 +1,14 @@
 const defaultState = {
-    draw: null,
-    erase: null,
     currentTool: 'brush'
 }
 
 const ToolsReducer = (state= defaultState, action) =>  {
     switch(action.type) {
-        case 'CHANGE_CURRENT_TOOL':
-            return {...state, currentTool: action.payload}
+        case 'SELECT_BRUSH':
+            return {...state, currentTool: 'brush'}
+
+        case 'SELECT_ERASER':
+            return { ...state, currentTool: 'eraser' }
 
         default:
         return state
