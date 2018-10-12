@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import { getMousePosition } from '../Helpers/MouseTracker'
-import { getTool } from '../Helpers/Tools'
 
 
 class Canvas extends Component   {
@@ -50,9 +49,11 @@ class Canvas extends Component   {
     drawOnScreen= (position) => {
         console.log("x:", position.x.roundTo(this.props.pixelSize))
         console.log("y:", position.y.roundTo(this.props.pixelSize))
-        this.props.pushHistory({ x: position.x.roundTo(this.props.pixelSize), y: position.y.roundTo(this.props.pixelSize)})
-        this.props.context.fillRect(position.x.roundTo(this.props.pixelSize), position.y.roundTo(this.props.pixelSize), this.props.pixelSize, this.props.pixelSize)
+        this.props.pushHistory({ x: position.x, y: position.y})
+        this.props.context.fillRect(position.x, position.y, this.props.pixelSize, this.props.pixelSize)
     }
+
+
 
     render()    {
         console.log(this.props)
@@ -66,7 +67,7 @@ class Canvas extends Component   {
                 height={"816px"} 
                 width={"816px"}
                 style={{ border: "1px solid black" }}
-                onMouseDown={(e) => getTool()(getMousePosition(e))}
+                onMouseDown={(e) => this.drawOnScreen(getMousePosition(e))}
                 ></canvas>
             </React.Fragment>
         )

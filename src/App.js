@@ -5,11 +5,7 @@ import Canvas from './Components/Canvas'
 
 import _ from 'lodash'
 import { Grid, Segment } from 'semantic-ui-react'
-<<<<<<< Updated upstream
-import roundToNearest from './Helpers/RoundingHelper'
-=======
 import roundTo from './Helpers/RoundingHelper'
->>>>>>> Stashed changes
 
 class App extends Component {
 
