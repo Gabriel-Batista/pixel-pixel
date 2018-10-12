@@ -18,6 +18,10 @@ class ToolBox extends Component   {
                     onClick={this.props.toggleGrid}>
                     Grid
                 </button>
+                <button
+                    onClick={this.props.pushFrame}>
+                    Save
+                </button>
             </div>
         )
     }
@@ -38,6 +42,11 @@ const mapDispatchToProps= (dispatch) =>   {
         toggleGrid: () => {
             dispatch({
                 type: 'TOGGLE_GRID'
+            })
+        },
+        pushFrame: () => {
+            dispatch({
+                type: 'PUSH_FRAME'
             })
         }
         

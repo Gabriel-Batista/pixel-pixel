@@ -3,6 +3,8 @@ import './App.css';
 
 import Canvas from './Components/Canvas'
 import ToolBox from './Components/ToolBox'
+import Preview from './Components/Preview'
+import Frame from './Components/Frame'
 
 import _ from 'lodash'
 import { Grid, Segment } from 'semantic-ui-react'
@@ -32,12 +34,14 @@ class App extends Component {
                         </Segment>
                         <Segment>
                             <div>FRAMES</div>
+                            <Frame style={{ overflow: "scroll" }} ></Frame>
                         </Segment>
                     </Grid.Column>
 
                     <Grid.Column width={3}>
                         <Segment>
                             <div>PREVIEW</div>
+                            <Preview></Preview>
                         </Segment>
                         <Segment>
                             <div>LAYERS</div>
