@@ -6,7 +6,6 @@ import Preview from './Preview'
 
 class Frame extends Component   {
     bringCanvasToFront= (index) =>   {
-        console.log(index)
         this.props.selectFrame(index)
 
         let tmpImg = new Image()
@@ -15,6 +14,9 @@ class Frame extends Component   {
         this.props.context.clearRect(0, 0, this.props.canvasWidth, this.props.canvasHeight)
         tmpImg.onload= () => {
             this.props.context.drawImage(tmpImg, 0, 0)
+
+            this.props.previewContext.clearRect(0, 0, this.props.canvasWidth, this.props.canvasHeight)
+            this.props.previewContext.drawImage(tmpImg, 0, 0, (this.props.canvasWidth / 3), ((this.props.canvasHeight) / 3))
         }
     }
 
@@ -22,10 +24,6 @@ class Frame extends Component   {
         return this.props.frames.map((frame, index) => {
             let tmpImg = new Image()
             tmpImg.src = frame.canvasURL
-            tmpImg.onload= () => {
-                console.log("onload")
-            }
-            console.log("outside")
             return (
                 <Card.Header key={index} style={{ display: "inline-block", marginLeft:"25px", float:"left"}}>
                     <Grid
@@ -56,7 +54,8 @@ const mapStateToProps= (state) =>   {
         context: state.canvas.context,
         frames: state.history.frames,
         canvasWidth: state.canvas.width,
-        canvasHeight: state.canvas.height
+        canvasHeight: state.canvas.height,
+        previewContext: state.canvas.previewContext
     }
 }
 

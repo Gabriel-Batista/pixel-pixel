@@ -1,12 +1,13 @@
 const defaultState = {
     context: null,
     gridContext: null,
+    previewContext: null,
     pixelSize: 24,
     height: 817,
     width: 816,
     grid: true,
     canvasRef: null,
-    selectedCanvas: 0
+    selectedFrame: 0
 }
 
 const CanvasReducer= (state = defaultState, action) => {
@@ -24,7 +25,10 @@ const CanvasReducer= (state = defaultState, action) => {
             return { ...state, grid: !state.grid }
 
         case 'SET_SELECTED_FRAME':
-            return {...state, selectedCanvas: action.payload}
+            return {...state, selectedFrame: action.payload}
+
+        case 'SET_PREVIEW_CONTEXT':
+            return {...state, previewContext: action.payload}
         default:
             return state
     }

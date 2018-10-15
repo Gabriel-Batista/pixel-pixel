@@ -44,7 +44,12 @@ class App extends Component {
                     <Grid.Column width={3}>
                         <Segment>
                             <div>PREVIEW</div>
-                            {this.props.canvasRef ? <Preview canvasToRender={this.props.canvasRef.current} history={this.props.history}></Preview>: null}
+                            {this.props.canvasRef ? 
+                                <Preview 
+                                    canvasToRender={this.props.canvasRef.current} 
+                                    history={this.props.history}
+                                ></Preview>
+                            : null}
                         </Segment>
                         <Segment>
                             <div>LAYERS</div>
@@ -60,8 +65,9 @@ class App extends Component {
 const mapStateToProps= (state) =>   {
     return {
         canvasRef: state.canvas.canvasRef,
-        history: state.history.history
+        history: state.history.history,
+        selectedFrame: state.canvas.selectedFrame
     }
 }
 
-export default connect(mapStateToProps)(App)
+export default connect(mapStateToProps, null)(App)
