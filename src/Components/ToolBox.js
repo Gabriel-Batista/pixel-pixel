@@ -6,6 +6,7 @@ class ToolBox extends Component   {
         
         this.props.pushFrame(this.props.canvasRef.current.toDataURL())
         this.props.context.clearRect(0, 0, this.props.canvasWidth, this.props.canvasHeight)
+        this.props.selectFrame(this.props.selectedCanvas + 1)
     }
 
     render() {
@@ -54,8 +55,13 @@ const mapDispatchToProps= (dispatch) =>   {
                 type: 'PUSH_FRAME',
                 payload: payload
             })
+        },
+        selectFrame: (payload) => {
+            dispatch({
+                type: 'SET_SELECTED_FRAME',
+                payload: payload
+            })
         }
-        
     }
 }
 
@@ -64,7 +70,8 @@ const mapStateToProps= (state) => {
         canvasRef: state.canvas.canvasRef,
         context: state.canvas.context,
         canvasWidth: state.canvas.width,
-        canvasHeight: state.canvas.height
+        canvasHeight: state.canvas.height,
+        selectedCanvas: state.canvas.selectedCanvas
     }
 }
 

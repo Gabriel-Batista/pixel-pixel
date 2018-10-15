@@ -22,7 +22,10 @@ class Frame extends Component   {
         return this.props.frames.map((frame, index) => {
             let tmpImg = new Image()
             tmpImg.src = frame.canvasURL
-            tmpImg.onload= () => {}
+            tmpImg.onload= () => {
+                console.log("onload")
+            }
+            console.log("outside")
             return (
                 <Card.Header key={index} style={{ display: "inline-block", marginLeft:"25px", float:"left"}}>
                     <Grid

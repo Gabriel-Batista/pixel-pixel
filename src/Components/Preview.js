@@ -19,12 +19,17 @@ class Preview extends Component   {
 
     componentDidUpdate= (prevProps) =>   {
         this.state.previewContext.clearRect(0, 0, this.props.canvasWidth, this.props.canvasHeight)
-        this.state.previewContext.drawImage(this.props.canvasToRender, 0, 0, (this.props.canvasWidth / 3), ((this.props.canvasHeight) / 3))
+        console.log(this.props.canvasToRender.tagName)
+        if(this.props.canvasToRender.tagName === 'IMG')
+        this.props.canvasToRender.onload = () => {
+            this.state.previewContext.drawImage(this.props.canvasToRender, 0, 0, (this.props.canvasWidth / 3), ((this.props.canvasHeight) / 3))
+        }
+        else    {
+            this.state.previewContext.drawImage(this.props.canvasToRender, 0, 0, (this.props.canvasWidth / 3), ((this.props.canvasHeight) / 3))
+        }
     }
 
     render()    {
-
-        
         return (
             <canvas
                 ref={this.previewRef}
@@ -40,8 +45,6 @@ const mapStateToProps= (state) =>   {
     return {
         canvasHeight: state.canvas.height,
         canvasWidth: state.canvas.width,
-        history: state.history.history,
-        selectedCanvas: state.canvas.selectedCanvas
     }
 }
 
