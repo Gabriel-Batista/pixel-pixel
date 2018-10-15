@@ -10,7 +10,8 @@ const HistoryReducer= (state= defaultState, action) => {
             return { ...state, history: newHistory }
 
             case 'PUSH_FRAME':
-            let newFrames = [...state.frames, state.history]
+            console.log(action)
+            let newFrames = [...state.frames, {history: state.history, element: action.payload}]
             return { frames: newFrames, history: [] }
 
         default:

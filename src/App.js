@@ -10,10 +10,13 @@ import _ from 'lodash'
 import { Grid, Segment } from 'semantic-ui-react'
 import roundTo from './Helpers/RoundingHelper'
 
+import { connect } from 'react-redux'
+
 class App extends Component {
 
 
     render() {
+        console.log(this.props.canvasRef)
         return (
             <Grid  style={{ marginTop: "auto" }} centered columns={3}>
                 <Grid.Row centered>
@@ -41,7 +44,7 @@ class App extends Component {
                     <Grid.Column width={3}>
                         <Segment>
                             <div>PREVIEW</div>
-                            <Preview></Preview>
+                            <Preview canvasToRender={this.props.canvasRef ? this.props.canvasRef.current : this.props.canvasRef}></Preview>
                         </Segment>
                         <Segment>
                             <div>LAYERS</div>
@@ -54,4 +57,10 @@ class App extends Component {
     }
 }
 
-export default App;
+const mapStateToProps= (state) =>   {
+    return {
+        canvasRef: state.canvas.canvasRef
+    }
+}
+
+export default connect(mapStateToProps)(App)

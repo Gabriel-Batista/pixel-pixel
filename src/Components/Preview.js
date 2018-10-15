@@ -19,7 +19,9 @@ class Preview extends Component   {
 
     componentDidUpdate= () =>   {
         this.state.previewContext.clearRect(0, 0, this.props.canvasWidth, this.props.canvasHeight)
-        this.state.previewContext.drawImage(this.props.canvasRef.current, 0, 0, (this.props.canvasWidth / 3), ((this.props.canvasHeight) / 3))
+        if(this.props.canvasToRender !== null)   {
+            this.state.previewContext.drawImage(this.props.canvasToRender, 0, 0, (this.props.canvasWidth / 3), ((this.props.canvasHeight) / 3))
+        }
     }
 
     render()    {

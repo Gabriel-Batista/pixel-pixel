@@ -6,14 +6,15 @@ import Preview from './Preview'
 
 class Frame extends Component   {
     renderFrames= () => {
-        return this.props.frames.map(frame => {
+        return this.props.frames.map((frame, index) => {
             return (
-                <Card.Header style={{ display: "inline-block", marginLeft:"25px", float:"left"}}>
-                    <Grid>
+                <Card.Header key={index} style={{ display: "inline-block", marginLeft:"25px", float:"left"}}>
+                    <Grid
+                        onClick={(e) => this.props.selectFrame(index)}>
                         <Grid.Column width={4}>
-                            <Preview></Preview>
+                            <Preview canvasToRender={frame.element}></Preview>
                         </Grid.Column>
-                        <Grid.Column width={12}>Hello World!</Grid.Column>
+                        <Grid.Column width={12}>{index}</Grid.Column>
                     </Grid>
                 </Card.Header>
             )
@@ -36,4 +37,15 @@ const mapStateToProps= (state) =>   {
     }
 }
 
-export default connect(mapStateToProps, null)(Frame)
+const mapDispatchToProps = (dispatch) => {
+    return {
+        selectFrame: (payload) => {
+        dispatch({
+            type: 'SET_SELECTED_FRAME',
+            payload: payload
+        })
+}
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Frame)

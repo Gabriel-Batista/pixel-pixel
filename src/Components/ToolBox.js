@@ -3,7 +3,26 @@ import { connect } from 'react-redux'
 
 class ToolBox extends Component   {
 
+    cloneCanvas= (oldCanvas) => {
+    var newCanvas = document.createElement('canvas');
+    var context = newCanvas.getContext('2d');
+
+    newCanvas.width = oldCanvas.width;
+    newCanvas.height = oldCanvas.height;
+
+    context.drawImage(oldCanvas, 0, 0);
+
+    return newCanvas;
+}
+
+    saveFrame= () => {
+        this.props.pushFrame(this.cloneCanvas(this.props.canvasRef.current))
+        console.log("context", this.props.context)
+        this.props.context.clearRect(0, 0, this.props.canvasWidth, this.props.canvasHeight)
+    }
+
     render() {
+        console.log(this.props)
         return  (
             <div>
                 <button
@@ -19,7 +38,7 @@ class ToolBox extends Component   {
                     Grid
                 </button>
                 <button
-                    onClick={this.props.pushFrame}>
+                    onClick={() => {this.saveFrame()}}>
                     Save
                 </button>
             </div>
@@ -44,13 +63,23 @@ const mapDispatchToProps= (dispatch) =>   {
                 type: 'TOGGLE_GRID'
             })
         },
-        pushFrame: () => {
+        pushFrame: (payload) => {
             dispatch({
-                type: 'PUSH_FRAME'
+                type: 'PUSH_FRAME',
+                payload: payload
             })
         }
         
     }
 }
 
-export default connect(null, mapDispatchToProps)(ToolBox)
+const mapStateToProps= (state) => {
+    return {
+        canvasRef: state.canvas.canvasRef,
+        context: state.canvas.context,
+        canvasWidth: state.canvas.width,
+        canvasHeight: state.canvas.height
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ToolBox)

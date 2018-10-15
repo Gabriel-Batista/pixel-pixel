@@ -5,7 +5,8 @@ const defaultState = {
     height: 817,
     width: 816,
     grid: true,
-    canvasRef: null
+    canvasRef: null,
+    selectedCanvas: 1
 }
 
 const CanvasReducer= (state = defaultState, action) => {
@@ -23,6 +24,8 @@ const CanvasReducer= (state = defaultState, action) => {
         case 'TOGGLE_GRID':
             return { ...state, grid: !state.grid }
 
+        case 'SET_SELECTED_FRAME':
+            return {...state, selectedCanvas: action.payload}
         default:
             return state
     }

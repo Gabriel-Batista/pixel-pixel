@@ -123,7 +123,6 @@ const mapDispatchToProps= (dispatch) =>   {
             })
         },
         pushHistory: (payload) => {
-            console.log(payload)
             dispatch({
                 type: 'PUSH_HISTORY',
                 payload: payload
