@@ -34,7 +34,7 @@ class App extends Component {
                         </Segment>
                         <Segment>
                             <div>FRAMES</div>
-                            <Frame style={{ overflow: "scroll" }} ></Frame>
+                            <Frame></Frame>
                         </Segment>
                     </Grid.Column>
 

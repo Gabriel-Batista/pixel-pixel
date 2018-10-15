@@ -50,8 +50,11 @@ class Canvas extends Component   {
     //===============================TOOLS================================
 
     draw= (position) => {
-        this.props.pushHistory({ action: "draw", x: position.x, y: position.y})
-        this.props.context.fillRect(position.x, position.y, this.props.pixelSize, this.props.pixelSize)
+        // Makes sure that user isn't drawing over the same square repeatedly
+        if (this.props.history.length === 0 || position.x !== this.props.history[this.props.history.length - 1].x || position.y !== this.props.history[this.props.history.length - 1].y){
+            this.props.pushHistory({ action: "draw", x: position.x, y: position.y})
+            this.props.context.fillRect(position.x, position.y, this.props.pixelSize, this.props.pixelSize)
+        }
     }
 
     erase= (position) => {
@@ -62,7 +65,6 @@ class Canvas extends Component   {
     getTool= () => {
         switch(this.props.currentTool)  {
             case 'brush':
-            console.log(this.draw)
                 return this.draw
             case 'eraser':
                 return this.erase
@@ -80,13 +82,18 @@ class Canvas extends Component   {
         }
         
         return  (
-            <React.Fragment>
+            <div>
                 <canvas 
                 ref={this.canvasRef} 
                 height={this.props.canvasHeight + "px"} 
                 width={this.props.canvasWidth + "px"}
                 style={{ border: "1px solid black", position:"absolute" }}
                 onMouseDown={(e) => this.getTool()(getMousePosition(e))}
+                onMouseMove={(e) => {
+                    if(e.buttons === 1) {
+                        this.getTool()(getMousePosition(e))
+                    }
+                }}
                 ></canvas>
                 <canvas
                     ref={this.gridRef}
@@ -94,7 +101,7 @@ class Canvas extends Component   {
                     width={this.props.canvasWidth + "px"}
                     style={{ border: "1px solid black"}}
                 ></canvas>
-            </React.Fragment>
+            </div>
         )
     }
 }

@@ -8,7 +8,7 @@ class Frame extends Component   {
     renderFrames= () => {
         return this.props.frames.map(frame => {
             return (
-                <Card.Header style={{ display: "inline-block", }}>
+                <Card.Header style={{ display: "inline-block", marginLeft:"25px", float:"left"}}>
                     <Grid>
                         <Grid.Column width={4}>
                             <Preview></Preview>
@@ -22,9 +22,9 @@ class Frame extends Component   {
 
     render()    {
         return  (
-            <React.Fragment>
+            <div style={{ overflowX: "scroll", display: "flex", flexDirection: "row" }}>
                 {this.renderFrames()}
-            </React.Fragment>
+            </div>
             
         )
     }
