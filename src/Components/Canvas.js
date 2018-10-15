@@ -7,8 +7,8 @@ import { getMousePosition } from '../Helpers/MouseTracker'
 class Canvas extends Component   {
     constructor(props)  {
         super(props)
-        this.canvasRef = React.createRef()
         this.gridRef = React.createRef()
+        this.canvasRef = React.createRef()
         this.props.setCanvasRef(this.canvasRef)
         this.props.setGridRef(this.gridRef)
     }
@@ -152,7 +152,8 @@ const mapStateToProps= (state) => {
         currentTool: state.tools.currentTool,
         history: state.history.history,
         canvasHeight: state.canvas.height,
-        canvasWidth: state.canvas.width
+        canvasWidth: state.canvas.width,
+        canvasRef: state.canvas.canvasRef
 
     }
 }

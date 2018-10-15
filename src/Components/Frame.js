@@ -5,14 +5,30 @@ import { Card, Grid } from 'semantic-ui-react';
 import Preview from './Preview'
 
 class Frame extends Component   {
+    bringCanvasToFront= (index) =>   {
+        console.log(index)
+        this.props.selectFrame(index)
+
+        let tmpImg = new Image()
+        tmpImg.src = this.props.frames[index].canvasURL
+
+        this.props.context.clearRect(0, 0, this.props.canvasWidth, this.props.canvasHeight)
+        tmpImg.onload= () => {
+            this.props.context.drawImage(tmpImg, 0, 0)
+        }
+    }
+
     renderFrames= () => {
         return this.props.frames.map((frame, index) => {
+            let tmpImg = new Image()
+            tmpImg.src = frame.canvasURL
+            tmpImg.onload= () => {}
             return (
                 <Card.Header key={index} style={{ display: "inline-block", marginLeft:"25px", float:"left"}}>
                     <Grid
-                        onClick={(e) => this.props.selectFrame(index)}>
+                        onClick={(e) => this.bringCanvasToFront(index)}>
                         <Grid.Column width={4}>
-                            <Preview canvasToRender={frame.element}></Preview>
+                            <Preview canvasToRender={tmpImg}></Preview>
                         </Grid.Column>
                         <Grid.Column width={12}>{index}</Grid.Column>
                     </Grid>
@@ -33,7 +49,11 @@ class Frame extends Component   {
 
 const mapStateToProps= (state) =>   {
     return {
-        frames: state.history.frames
+        frames: state.history.frames,
+        context: state.canvas.context,
+        frames: state.history.frames,
+        canvasWidth: state.canvas.width,
+        canvasHeight: state.canvas.height
     }
 }
 

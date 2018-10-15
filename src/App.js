@@ -16,7 +16,7 @@ class App extends Component {
 
 
     render() {
-        console.log(this.props.canvasRef)
+        
         return (
             <Grid  style={{ marginTop: "auto" }} centered columns={3}>
                 <Grid.Row centered>
@@ -44,7 +44,7 @@ class App extends Component {
                     <Grid.Column width={3}>
                         <Segment>
                             <div>PREVIEW</div>
-                            <Preview canvasToRender={this.props.canvasRef ? this.props.canvasRef.current : this.props.canvasRef}></Preview>
+                            {this.props.canvasRef ? <Preview canvasToRender={this.props.canvasRef.current}></Preview>: null}
                         </Segment>
                         <Segment>
                             <div>LAYERS</div>
@@ -59,7 +59,7 @@ class App extends Component {
 
 const mapStateToProps= (state) =>   {
     return {
-        canvasRef: state.canvas.canvasRef
+        canvasRef: state.canvas.canvasRef,
     }
 }
 

@@ -17,14 +17,14 @@ class Preview extends Component   {
         })
     }
 
-    componentDidUpdate= () =>   {
+    componentDidUpdate= (prevProps) =>   {
         this.state.previewContext.clearRect(0, 0, this.props.canvasWidth, this.props.canvasHeight)
-        if(this.props.canvasToRender !== null)   {
-            this.state.previewContext.drawImage(this.props.canvasToRender, 0, 0, (this.props.canvasWidth / 3), ((this.props.canvasHeight) / 3))
-        }
+        this.state.previewContext.drawImage(this.props.canvasToRender, 0, 0, (this.props.canvasWidth / 3), ((this.props.canvasHeight) / 3))
     }
 
     render()    {
+
+        
         return (
             <canvas
                 ref={this.previewRef}
@@ -38,10 +38,10 @@ class Preview extends Component   {
 
 const mapStateToProps= (state) =>   {
     return {
-        canvasRef: state.canvas.canvasRef,
         canvasHeight: state.canvas.height,
         canvasWidth: state.canvas.width,
-        history: state.history.history
+        history: state.history.history,
+        selectedCanvas: state.canvas.selectedCanvas
     }
 }
 

@@ -2,27 +2,13 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 class ToolBox extends Component   {
-
-    cloneCanvas= (oldCanvas) => {
-    var newCanvas = document.createElement('canvas');
-    var context = newCanvas.getContext('2d');
-
-    newCanvas.width = oldCanvas.width;
-    newCanvas.height = oldCanvas.height;
-
-    context.drawImage(oldCanvas, 0, 0);
-
-    return newCanvas;
-}
-
     saveFrame= () => {
-        this.props.pushFrame(this.cloneCanvas(this.props.canvasRef.current))
-        console.log("context", this.props.context)
+        
+        this.props.pushFrame(this.props.canvasRef.current.toDataURL())
         this.props.context.clearRect(0, 0, this.props.canvasWidth, this.props.canvasHeight)
     }
 
     render() {
-        console.log(this.props)
         return  (
             <div>
                 <button

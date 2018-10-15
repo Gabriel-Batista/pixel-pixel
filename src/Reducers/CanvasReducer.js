@@ -6,7 +6,7 @@ const defaultState = {
     width: 816,
     grid: true,
     canvasRef: null,
-    selectedCanvas: 1
+    selectedCanvas: 0
 }
 
 const CanvasReducer= (state = defaultState, action) => {
@@ -18,7 +18,6 @@ const CanvasReducer= (state = defaultState, action) => {
             return { ...state, gridContext: action.payload }
 
         case 'SET_CONTEXT':
-            console.log(action.payload)
             return { ...state, context: action.payload }
 
         case 'TOGGLE_GRID':
