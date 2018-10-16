@@ -17,6 +17,12 @@ const HistoryReducer= (state= defaultState, action) => {
         case 'SAVE_GIF':
             return {...state, gif: action.payload}
 
+        case 'UPDATE_FRAME':
+        let updateFrames = [...state.frames]
+        console.log(state)
+            updateFrames[action.payload.index] = { ...state.frames[action.payload.index], canvasURL: action.payload.canvasURL }
+            return{...state, frames: updateFrames}
+
         default:
             return state
     }

@@ -18,13 +18,7 @@ class Canvas extends Component   {
         this.props.setGridContext(this.gridRef.current.getContext('2d'))
     }
 
-    // updateCanvas= () =>     {
-    //     this.props.history.each(step => {
-    //         if(step.action === "draw")  {
-    //             this.draw(step)
-    //         }
-    //     })
-    // }
+
 
     drawGrid= () =>  {
         const width = this.gridRef.current.width
@@ -55,6 +49,7 @@ class Canvas extends Component   {
             this.props.pushHistory({ action: "draw", x: position.x, y: position.y})
             this.props.context.fillStyle = 'rgb(' + this.props.color.r + ',' + this.props.color.g + ',' + this.props.color.b + ',' + this.props.color.a + ')'
             this.props.context.fillRect(position.x, position.y, this.props.pixelSize, this.props.pixelSize)
+            
         }
     }
 
@@ -95,6 +90,7 @@ class Canvas extends Component   {
                             this.getTool()(getMousePosition(e))
                         }
                     }}
+                    onMouseUp={() => this.props.updateFrame({ index: this.props.selectedCanvas, canvasURL: this.props.canvasRef.current.toDataURL() })}
                 ></canvas>
                 <canvas 
                 ref={this.canvasRef} 
@@ -141,6 +137,12 @@ const mapDispatchToProps= (dispatch) =>   {
                 payload: payload
             })
         },
+        updateFrame: (payload) =>   {
+            dispatch({
+                type: 'UPDATE_FRAME',
+                payload: payload
+            })
+        }
     }
 }
 
@@ -155,7 +157,8 @@ const mapStateToProps= (state) => {
         canvasHeight: state.canvas.height,
         canvasWidth: state.canvas.width,
         canvasRef: state.canvas.canvasRef,
-        color: state.tools.color
+        color: state.tools.color,
+        selectedCanvas: state.canvas.selectedFrame
 
     }
 }

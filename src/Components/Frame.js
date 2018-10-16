@@ -5,6 +5,13 @@ import { Card, Grid } from 'semantic-ui-react';
 import Preview from './Preview'
 
 class Frame extends Component   {
+
+    newFrame = () => {
+        this.props.context.clearRect(0, 0, this.props.canvasWidth, this.props.canvasHeight)
+        this.props.pushFrame(this.props.canvasRef.current.toDataURL())
+        this.props.selectFrame(this.props.selectedCanvas + 1)
+    }
+
     bringCanvasToFront= (index) =>   {
         this.props.selectFrame(index)
 
@@ -42,6 +49,7 @@ class Frame extends Component   {
         return  (
             <div style={{ overflowX: "scroll", display: "flex", flexDirection: "row" }}>
                 {this.renderFrames()}
+                <button onClick={this.newFrame}>NEW</button>
             </div>
             
         )
@@ -51,21 +59,29 @@ class Frame extends Component   {
 const mapStateToProps= (state) =>   {
     return {
         frames: state.history.frames,
+        canvasRef: state.canvas.canvasRef,
         context: state.canvas.context,
         canvasWidth: state.canvas.width,
         canvasHeight: state.canvas.height,
-        previewContext: state.canvas.previewContext
+        previewContext: state.canvas.previewContext,
+        selectedCanvas: state.canvas.selectedFrame
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
         selectFrame: (payload) => {
-        dispatch({
-            type: 'SET_SELECTED_FRAME',
-            payload: payload
-        })
-}
+            dispatch({
+                type: 'SET_SELECTED_FRAME',
+                payload: payload
+            })
+        },
+        pushFrame: (payload) => {
+            dispatch({
+                type: 'PUSH_FRAME',
+                payload: payload
+            })
+        },
     }
 }
 

@@ -4,7 +4,6 @@ import { SketchPicker } from 'react-color'
 
 class ToolBox extends Component   {
     saveFrame= () => {
-        
         this.props.pushFrame(this.props.canvasRef.current.toDataURL())
         this.props.context.clearRect(0, 0, this.props.canvasWidth, this.props.canvasHeight)
         this.props.selectFrame(this.props.selectedCanvas + 1)
