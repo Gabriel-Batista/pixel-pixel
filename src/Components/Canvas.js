@@ -53,6 +53,7 @@ class Canvas extends Component   {
         // Makes sure that user isn't drawing over the same square repeatedly
         if (this.props.history.length === 0 || position.x !== this.props.history[this.props.history.length - 1].x || position.y !== this.props.history[this.props.history.length - 1].y){
             this.props.pushHistory({ action: "draw", x: position.x, y: position.y})
+            this.props.context.fillStyle = 'rgb(' + this.props.color.r + ',' + this.props.color.g + ',' + this.props.color.b + ',' + this.props.color.a + ')'
             this.props.context.fillRect(position.x, position.y, this.props.pixelSize, this.props.pixelSize)
         }
     }
@@ -153,7 +154,8 @@ const mapStateToProps= (state) => {
         history: state.history.history,
         canvasHeight: state.canvas.height,
         canvasWidth: state.canvas.width,
-        canvasRef: state.canvas.canvasRef
+        canvasRef: state.canvas.canvasRef,
+        color: state.tools.color
 
     }
 }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { SketchPicker } from 'react-color'
 
 class ToolBox extends Component   {
     saveFrame= () => {
@@ -8,6 +9,11 @@ class ToolBox extends Component   {
         this.props.context.clearRect(0, 0, this.props.canvasWidth, this.props.canvasHeight)
         this.props.selectFrame(this.props.selectedCanvas + 1)
     }
+
+    handleChangeComplete = (color) => {
+        console.log(color.rgb)
+        this.props.selectColor(color.rgb)
+    };
 
     render() {
         return  (
@@ -28,6 +34,10 @@ class ToolBox extends Component   {
                     onClick={() => {this.saveFrame()}}>
                     Save
                 </button>
+                <SketchPicker
+                    color={this.props.color}
+                    onChangeComplete={this.handleChangeComplete}
+                    />
             </div>
         )
     }
@@ -61,6 +71,12 @@ const mapDispatchToProps= (dispatch) =>   {
                 type: 'SET_SELECTED_FRAME',
                 payload: payload
             })
+        },
+        selectColor: (payload) => {
+            dispatch({
+                type: 'SELECT_COLOR',
+                payload: payload
+            })
         }
     }
 }
@@ -71,7 +87,8 @@ const mapStateToProps= (state) => {
         context: state.canvas.context,
         canvasWidth: state.canvas.width,
         canvasHeight: state.canvas.height,
-        selectedCanvas: state.canvas.selectedCanvas
+        selectedCanvas: state.canvas.selectedCanvas,
+        color: state.tools.color
     }
 }
 

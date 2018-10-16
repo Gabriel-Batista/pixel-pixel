@@ -1,5 +1,6 @@
 const defaultState = {
-    currentTool: 'brush'
+    currentTool: 'brush',
+    color: '#000'
 }
 
 const ToolsReducer = (state= defaultState, action) =>  {
@@ -9,6 +10,9 @@ const ToolsReducer = (state= defaultState, action) =>  {
 
         case 'SELECT_ERASER':
             return { ...state, currentTool: 'eraser' }
+
+        case 'SELECT_COLOR':
+        return {...state, color: action.payload}
 
         default:
         return state
