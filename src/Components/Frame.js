@@ -52,7 +52,6 @@ const mapStateToProps= (state) =>   {
     return {
         frames: state.history.frames,
         context: state.canvas.context,
-        frames: state.history.frames,
         canvasWidth: state.canvas.width,
         canvasHeight: state.canvas.height,
         previewContext: state.canvas.previewContext

@@ -84,23 +84,23 @@ class Canvas extends Component   {
         
         return  (
             <div>
-                <canvas 
-                ref={this.canvasRef} 
-                height={this.props.canvasHeight + "px"} 
-                width={this.props.canvasWidth + "px"}
-                style={{ border: "1px solid black", position:"absolute" }}
-                onMouseDown={(e) => this.getTool()(getMousePosition(e))}
-                onMouseMove={(e) => {
-                    if(e.buttons === 1) {
-                        this.getTool()(getMousePosition(e))
-                    }
-                }}
-                ></canvas>
                 <canvas
                     ref={this.gridRef}
                     height={this.props.canvasHeight + "px"}
                     width={this.props.canvasWidth + "px"}
-                    style={{ border: "1px solid black"}}
+                    style={{ border: "1px solid black", position: "absolute" }}
+                    onMouseDown={(e) => this.getTool()(getMousePosition(e))}
+                    onMouseMove={(e) => {
+                        if (e.buttons === 1) {
+                            this.getTool()(getMousePosition(e))
+                        }
+                    }}
+                ></canvas>
+                <canvas 
+                ref={this.canvasRef} 
+                height={this.props.canvasHeight + "px"} 
+                width={this.props.canvasWidth + "px"}
+                style={{ border: "1px solid black" }}
                 ></canvas>
             </div>
         )

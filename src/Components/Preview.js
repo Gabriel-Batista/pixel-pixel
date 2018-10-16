@@ -15,7 +15,6 @@ class Preview extends Component   {
         if (this.props.previewContext === null) {
             this.props.setPreviewContext(this.previewRef.current.getContext('2d'))
         }
-        console.log(this.props.selectedFrame)
         this.setState({
             previewContext: this.previewRef.current.getContext('2d')
         })

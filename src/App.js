@@ -5,6 +5,7 @@ import Canvas from './Components/Canvas'
 import ToolBox from './Components/ToolBox'
 import Preview from './Components/Preview'
 import Frame from './Components/Frame'
+import Gif from './Components/Gif'
 
 import _ from 'lodash'
 import { Grid, Segment } from 'semantic-ui-react'
@@ -12,11 +13,12 @@ import roundTo from './Helpers/RoundingHelper'
 
 import { connect } from 'react-redux'
 
+
 class App extends Component {
 
 
+
     render() {
-        
         return (
             <Grid  style={{ marginTop: "auto" }} centered columns={3}>
                 <Grid.Row centered>
@@ -53,6 +55,7 @@ class App extends Component {
                         </Segment>
                         <Segment>
                             <div>LAYERS</div>
+                                <Gif></Gif>
                         </Segment>
                     </Grid.Column>
 
@@ -66,7 +69,8 @@ const mapStateToProps= (state) =>   {
     return {
         canvasRef: state.canvas.canvasRef,
         history: state.history.history,
-        selectedFrame: state.canvas.selectedFrame
+        selectedFrame: state.canvas.selectedFrame,
+        
     }
 }
 

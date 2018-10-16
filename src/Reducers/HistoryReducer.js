@@ -1,6 +1,7 @@
 const defaultState = {
     history: [],
-    frames: []
+    frames: [],
+    gif: null
 }
 
 const HistoryReducer= (state= defaultState, action) => {
@@ -9,9 +10,12 @@ const HistoryReducer= (state= defaultState, action) => {
             let newHistory = [...state.history, action.payload]
             return { ...state, history: newHistory }
 
-            case 'PUSH_FRAME':
+        case 'PUSH_FRAME':
             let newFrames = [...state.frames, {history: state.history, canvasURL: action.payload}]
             return { frames: newFrames, history: [] }
+
+        case 'SAVE_GIF':
+            return {...state, gif: action.payload}
 
         default:
             return state
