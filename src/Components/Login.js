@@ -44,9 +44,17 @@ class Login extends Component {
             }
             else {
                 this.props.userLoggedIn(res)
-                localStorage.setItem('token', res.user.token)
+                localStorage.setItem('token', res.token)
             }
         })
+    }
+
+    clearError= () =>   {
+        if(this.props.error)    {
+            console.log("before:", this.props.error)
+            this.props.toggleError()
+            console.log("after:", this.props.error)
+        }
     }
 
     render() {
@@ -70,9 +78,10 @@ class Login extends Component {
                                         icon='user'
                                         iconPosition='left'
                                         placeholder='Username'
-                                        error={!!this.props.error}
+                                        error={this.props.error !== 'none'}
                                         value={this.state.username}
                                         onChange={(e) => this.setState({ username: e.target.value })}
+                                        onFocus={this.clearError}
                                     ></Form.Input>
                                     <br />
                                     <Form.Input 
@@ -80,9 +89,10 @@ class Login extends Component {
                                         iconPosition='left'
                                         placeholder='Password'
                                         type='password'
-                                        error={!!this.props.error}
+                                        error={this.props.error !== 'none'}
                                         value={this.state.password}
                                         onChange={(e) => this.setState({ password: e.target.value })}
+                                        onFocus={this.clearError}
                                     ></Form.Input>
                                     <br/>
                                 </Form>

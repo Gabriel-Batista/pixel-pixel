@@ -7,6 +7,7 @@ import Preview from './Components/Preview'
 import Frame from './Components/Frame'
 import Gif from './Components/Gif'
 import Login from './Components/Login'
+import Logout from './Components/Logout'
 
 import _ from 'lodash'
 import { Grid, Segment } from 'semantic-ui-react'
@@ -27,7 +28,7 @@ class App extends Component {
                     <Grid.Column width={3}>
                         <Segment>
                             <div>LOGO</div>
-                            <Login/>
+                            {this.props.status === "logged out" ? <Login/> : <Logout/>}
                         </Segment>
                         <Segment>
                             <div>TOOLBOX</div>
@@ -72,6 +73,7 @@ const mapStateToProps= (state) =>   {
         canvasRef: state.canvas.canvasRef,
         history: state.history.history,
         selectedFrame: state.canvas.selectedFrame,
+        status: state.users.status
         
     }
 }

@@ -1,23 +1,29 @@
 const defaultState = {
     userId: null,
-    status: "logged off",
-    error: false
+    status: "logged out",
+    error: "none"
 }
 
 const UsersReducer = (state = defaultState, action) => {
     switch (action.type) {
         case 'AWAITING_USER_LOGIN':
-            return {...state, userLogIn: "waiting"}
+            return {...state, status: "waiting"}
 
         case 'USER_LOGGED_IN':
-            return {...state, userLogIn: "logged in"}
+            return {...state, status: "logged in"}
+
+        case 'USER_LOGGED_OUT':
+            return {...state, status: "logged out"}
 
         case 'ERROR':
             if (action.payload === 'signup')    {
                 return {...state, error: "signup"}
             }
-            else    {
+            else if (action.payload === 'login')   {
                 return {...state, error: "login"}
+            }
+            else    {
+                return {...state, error: "none"}
             }
             
 
