@@ -4,23 +4,25 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
+import thunk from 'redux-thunk';
 
 import ToolsReducer from './Reducers/ToolsReducer'
 import CanvasReducer from './Reducers/CanvasReducer'
 import HistoryReducer from './Reducers/HistoryReducer'
-import { combineReducers } from "redux";
+import UsersReducer from './Reducers/UsersReducer'
+import { combineReducers } from "redux"
 
 const rootReducer = combineReducers({
     canvas: CanvasReducer,
     history: HistoryReducer,
-    tools: ToolsReducer
+    tools: ToolsReducer,
+    users: UsersReducer
 });
 
 export const store = createStore(rootReducer,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
-
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), applyMiddleware(thunk))
 ReactDOM.render(
 <Provider store={store}>
     <App />

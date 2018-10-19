@@ -6,6 +6,7 @@ import ToolBox from './Components/ToolBox'
 import Preview from './Components/Preview'
 import Frame from './Components/Frame'
 import Gif from './Components/Gif'
+import Login from './Components/Login'
 
 import _ from 'lodash'
 import { Grid, Segment } from 'semantic-ui-react'
@@ -26,6 +27,7 @@ class App extends Component {
                     <Grid.Column width={3}>
                         <Segment>
                             <div>LOGO</div>
+                            <Login/>
                         </Segment>
                         <Segment>
                             <div>TOOLBOX</div>
