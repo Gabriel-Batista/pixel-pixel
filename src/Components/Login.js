@@ -26,7 +26,7 @@ class Login extends Component {
                 this.props.toggleError('login')
             }
             else    {
-                this.props.userLoggedIn(res)
+                this.props.userLoggedIn(res.user.username)
                 localStorage.setItem('token', res.user.token)
             }
         })
@@ -43,7 +43,7 @@ class Login extends Component {
                 this.props.toggleError('signup')
             }
             else {
-                this.props.userLoggedIn(res)
+                this.props.userLoggedIn(res.username)
                 localStorage.setItem('token', res.token)
             }
         })

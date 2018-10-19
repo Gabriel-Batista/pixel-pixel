@@ -1,12 +1,17 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { SketchPicker } from 'react-color'
+import { ProjectAdapter } from '../Helpers/ProjectAdapter'
 
 class ToolBox extends Component   {
     saveFrame= () => {
         this.props.pushFrame(this.props.canvasRef.current.toDataURL())
         this.props.context.clearRect(0, 0, this.props.canvasWidth, this.props.canvasHeight)
         this.props.selectFrame(this.props.selectedCanvas + 1)
+        ProjectAdapter.fetchCreateProject({
+            token: localStorage.getItem('token'),
+            frames: this.props.frames
+        })
     }
 
     handleChangeComplete = (color) => {
@@ -87,7 +92,8 @@ const mapStateToProps= (state) => {
         canvasWidth: state.canvas.width,
         canvasHeight: state.canvas.height,
         selectedCanvas: state.canvas.selectedCanvas,
-        color: state.tools.color
+        color: state.tools.color,
+        frames: state.history.frames
     }
 }
 

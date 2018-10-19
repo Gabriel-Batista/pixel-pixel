@@ -7,7 +7,8 @@ const defaultState = {
     width: 816,
     grid: true,
     canvasRef: null,
-    selectedFrame: 0
+    selectedFrame: 0,
+    projectName: "Untitled"
 }
 
 const CanvasReducer= (state = defaultState, action) => {
@@ -29,6 +30,9 @@ const CanvasReducer= (state = defaultState, action) => {
 
         case 'SET_PREVIEW_CONTEXT':
             return {...state, previewContext: action.payload}
+
+        case 'CHANGE_PROJECT_NAME':
+            return {...state, projectName: action.payload}
         default:
             return state
     }

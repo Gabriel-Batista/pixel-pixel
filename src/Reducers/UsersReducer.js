@@ -1,6 +1,7 @@
 const defaultState = {
-    userId: null,
+    username: "",
     status: "logged out",
+    setProject: null,
     error: "none"
 }
 
@@ -10,10 +11,13 @@ const UsersReducer = (state = defaultState, action) => {
             return {...state, status: "waiting"}
 
         case 'USER_LOGGED_IN':
-            return {...state, status: "logged in"}
+            return {...state, username: action.payload, status: "logged in"}
 
         case 'USER_LOGGED_OUT':
             return {...state, status: "logged out"}
+
+        case 'SET_PROJECT':
+        return {...state, setProject: action.payload}
 
         case 'ERROR':
             if (action.payload === 'signup')    {

@@ -1,7 +1,8 @@
 const defaultState = {
     history: [],
     frames: [],
-    gif: null
+    gif: null,
+    saved: true
 }
 
 const HistoryReducer= (state= defaultState, action) => {
@@ -14,14 +15,17 @@ const HistoryReducer= (state= defaultState, action) => {
             let newFrames = [...state.frames, {history: state.history, canvasURL: action.payload}]
             return { frames: newFrames, history: [] }
 
-        case 'SAVE_GIF':
-            return {...state, gif: action.payload}
+        //TODO: Implement Gif Feature
+        // case 'SAVE_GIF':
+        //     return {...state, gif: action.payload}
 
         case 'UPDATE_FRAME':
         let updateFrames = [...state.frames]
-        console.log(state)
-            updateFrames[action.payload.index] = { ...state.frames[action.payload.index], canvasURL: action.payload.canvasURL }
-            return{...state, frames: updateFrames}
+        updateFrames[action.payload.index] = { ...state.frames[action.payload.index], canvasURL: action.payload.canvasURL }
+        return {...state, frames: updateFrames}
+
+        case 'SAVED_PROJECT':
+            return {...state, saved: true}
 
         default:
             return state
