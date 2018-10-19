@@ -51,9 +51,7 @@ class Login extends Component {
 
     clearError= () =>   {
         if(this.props.error)    {
-            console.log("before:", this.props.error)
             this.props.toggleError()
-            console.log("after:", this.props.error)
         }
     }
 

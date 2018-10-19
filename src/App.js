@@ -29,6 +29,7 @@ class App extends Component {
                         <Segment>
                             <div>LOGO</div>
                             {this.props.status === "logged out" ? <Login/> : <Logout/>}
+                            {this.props.status === "logged in" ? <Projects/> : null}
                         </Segment>
                         <Segment>
                             <div>TOOLBOX</div>
