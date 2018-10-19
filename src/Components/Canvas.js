@@ -43,10 +43,11 @@ class Canvas extends Component   {
 
     //===============================TOOLS================================
 
-    draw= (position) => {
+    draw= (position, original) => {
+        console.log(original)
         // Makes sure that user isn't drawing over the same square repeatedly
         if (this.props.history.length === 0 || position.x !== this.props.history[this.props.history.length - 1].x || position.y !== this.props.history[this.props.history.length - 1].y){
-            this.props.pushHistory({ action: "draw", x: position.x, y: position.y})
+            this.props.pushHistory({ action: "draw", x: position.x, y: position.y, originalX: original.x, originalY: original.y })
             this.props.context.fillStyle = 'rgb(' + this.props.color.r + ',' + this.props.color.g + ',' + this.props.color.b + ',' + this.props.color.a + ')'
             this.props.context.fillRect(position.x, position.y, this.props.pixelSize, this.props.pixelSize)
             
@@ -84,10 +85,10 @@ class Canvas extends Component   {
                     height={this.props.canvasHeight + "px"}
                     width={this.props.canvasWidth + "px"}
                     style={{ border: "1px solid black", position: "absolute" }}
-                    onMouseDown={(e) => this.getTool()(getMousePosition(e))}
+                    onMouseDown={(e) => this.getTool()(getMousePosition(e), { x: e.clientX, y: e.clientY })}
                     onMouseMove={(e) => {
                         if (e.buttons === 1) {
-                            this.getTool()(getMousePosition(e))
+                            this.getTool()(getMousePosition(e), { x: e.clientX, y: e.clientY })
                         }
                     }}
                     onMouseUp={() => this.props.updateFrame({ index: this.props.selectedCanvas, canvasURL: this.props.canvasRef.current.toDataURL() })}

@@ -27,10 +27,9 @@ class Login extends Component {
             }
             else    {
                 this.props.userLoggedIn(res)
+                localStorage.setItem('token', res.user.token)
             }
         })
-
-        // localStorage.setItem("token", )
     }
 
     signup= () => {
@@ -45,6 +44,7 @@ class Login extends Component {
             }
             else {
                 this.props.userLoggedIn(res)
+                localStorage.setItem('token', res.user.token)
             }
         })
     }
