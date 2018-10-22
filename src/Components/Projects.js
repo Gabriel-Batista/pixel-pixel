@@ -49,7 +49,12 @@ class Projects extends Component    {
         })
     }
 
-    show = dimmer => () => this.setState({ dimmer, open: true })
+    show = dimmer => () => {
+        ProjectFetches.fetchProjects()
+        .then(res => this.props.pullProjects(res))
+        .then(this.setState({ dimmer, open: true }))
+    }
+
     close = () => this.setState({ open: false })
 
     render()    {
@@ -119,6 +124,12 @@ const mapDispatchToProps= (dispatch) => {
         changeProjectName: (payload) => {
             dispatch({
                 type: 'CHANGE_PROJECT_NAME',
+                payload: payload
+            })
+        },
+        pullProjects: (payload) => {
+            dispatch({
+                type: 'PULL_PROJECTS',
                 payload: payload
             })
         },
