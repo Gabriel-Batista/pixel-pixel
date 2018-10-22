@@ -13,11 +13,26 @@ import Projects from './Components/Projects'
 import { Grid, Segment, Input } from 'semantic-ui-react'
 import roundTo from './Helpers/RoundingHelper'
 
+import { ProjectFetches } from './Helpers/ProjectAdapter'
+import { UserFetches } from './Helpers/UserAdapter'
+
 import { connect } from 'react-redux'
 
 
 class App extends Component {
+    constructor(props)   {
+        super(props)
+        const token = localStorage.getItem("token")
+        if(token)   {
+            this.props.userLoggedIn()
 
+            UserFetches.fetchPersistUser(token)
+            .then(res => {this.props.userLoggedIn(res.username)})
+            .then(res => ProjectFetches.fetchProjects()
+            .then(res => this.props.pullProjects(res)))
+            
+        }
+    }
 
     render() {
         return (
@@ -80,7 +95,7 @@ const mapStateToProps= (state) =>   {
         history: state.history.selectedHistory,
         selectedFrame: state.canvas.frameId,
         status: state.users.status,
-        projectName: state.canvas.projectName
+        projectName: state.canvas.projectName,
     }
 }
 
@@ -91,7 +106,19 @@ const mapDispatchToProps= (dispatch) => {
                 type: 'CHANGE_PROJECT_NAME',
                 payload: payload
             })
-        }
+        },
+        pullProjects: (payload) => {
+            dispatch({
+                type: 'PULL_PROJECTS',
+                payload: payload
+            })
+        },
+        userLoggedIn: (payload) => {
+            dispatch({
+                type: 'USER_LOGGED_IN',
+                payload: payload
+            })
+        },
     }
 }
 

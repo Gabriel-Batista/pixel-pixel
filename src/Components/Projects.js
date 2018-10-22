@@ -16,9 +16,27 @@ class Projects extends Component    {
     loadProject= (project) =>   {
         ProjectFetches.fetchProjectFrames(project.id)
             .then(res => this.props.loadProject(res))
+            .then(res => this.bringCanvasToFront(Object.keys(this.props.frames)[0]))
+    }
+
+    //TODO: refactor to call this function from <Frame/>
+    bringCanvasToFront = (id) => {
+        this.props.selectFrame(id)
+        this.props.context.clearRect(0, 0, this.props.canvasWidth, this.props.canvasHeight)
+
+        let tmpImg = new Image()
+        tmpImg.src = this.props.frames[id].base64
+
+        tmpImg.onload = () => {
+            this.props.context.drawImage(tmpImg, 0, 0)
+
+            this.props.previewContext.clearRect(0, 0, this.props.canvasWidth, this.props.canvasHeight)
+            this.props.previewContext.drawImage(tmpImg, 0, 0, (this.props.canvasWidth / 3), ((this.props.canvasHeight) / 3))
+        }
     }
 
     renderProjects = () =>  {
+        console.log(this.props.projects)
         return this.props.projects.map((project, index) => {
             return <ProjectCard 
                         key={index}
@@ -60,7 +78,12 @@ class Projects extends Component    {
 const mapStateToProps= (state) =>   {
     return {
         status: state.users.status,
-        projects: state.projects.projects
+        projects: state.projects.projects,
+        frames: state.history.frames,
+        context: state.canvas.context,
+        previewContext: state.canvas.previewContext,
+        canvasHeight: state.canvas.height,
+        canvasWidth: state.canvas.width
     }
 }
 
@@ -77,7 +100,13 @@ const mapDispatchToProps= (dispatch) => {
                 type: "LOAD_PROJECT",
                 payload: payload
             })
-        }
+        },
+        selectFrame: (payload) => {
+            dispatch({
+                type: 'SET_SELECTED_FRAME',
+                payload: payload
+            })
+        },
     }
 }
 

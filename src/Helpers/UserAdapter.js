@@ -8,9 +8,7 @@ export const UserFetches = {
                     body: JSON.stringify({ user: data })
                 })
                 .then(response => response.json())
-    }
-    ,
-
+    },
     fetchCreateUser: (data) => {
                 return fetch(fetchConsts.API + '/users', {
                     method: 'POST',
@@ -18,6 +16,17 @@ export const UserFetches = {
                     body: JSON.stringify(data)
                 })
                 .then(response => response.json())
+    },
+    fetchPersistUser: (token) => {
+        return fetch(fetchConsts.API + '/persist', {
+            method: 'GET',
+            headers: {
+                ...fetchConsts, Authorization: localStorage.getItem("token")
             }
+        })
+        .then(res => res.json())
+    }
+
+
 }
 
