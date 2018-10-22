@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Button, Header, Modal, Form, Grid } from 'semantic-ui-react'
 import { UserFetches } from '../Helpers/UserAdapter'
+import { ProjectFetches } from '../Helpers/ProjectAdapter'
 
 import { connect } from 'react-redux'
 
@@ -27,6 +28,9 @@ class Login extends Component {
             else    {
                 this.props.userLoggedIn(res.user.username)
                 localStorage.setItem('token', res.user.token)
+
+                ProjectFetches.fetchProjects()
+                .then(res => this.props.pullProjects(res))
             }
         })
     }
@@ -140,6 +144,12 @@ const mapDispatchToProps= (dispatch) => {
         toggleError: (payload) => {
             dispatch({
                 type: 'ERROR',
+                payload: payload
+            })
+        },
+        pullProjects: (payload) => {
+            dispatch({
+                type: 'PULL_PROJECTS',
                 payload: payload
             })
         }

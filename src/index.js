@@ -12,13 +12,15 @@ import ToolsReducer from './Reducers/ToolsReducer'
 import CanvasReducer from './Reducers/CanvasReducer'
 import HistoryReducer from './Reducers/HistoryReducer'
 import UsersReducer from './Reducers/UsersReducer'
+import ProjectsReducer from './Reducers/ProjectsReducer'
 import { combineReducers } from "redux"
 
 const rootReducer = combineReducers({
     canvas: CanvasReducer,
     history: HistoryReducer,
     tools: ToolsReducer,
-    users: UsersReducer
+    users: UsersReducer,
+    projects: ProjectsReducer
 });
 
 export const store = createStore(rootReducer,

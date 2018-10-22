@@ -11,8 +11,12 @@ class ToolBox extends Component   {
         console.log(this.props.frames)
         ProjectFetches.fetchCreateProject({
             token: localStorage.getItem('token'),
+            name: this.props.projectName,
             frames: this.props.frames
         })
+
+        ProjectFetches.fetchProjects()
+        .then(res => this.props.pullProjects(res))
     }
 
     handleChangeComplete = (color) => {
@@ -82,6 +86,12 @@ const mapDispatchToProps= (dispatch) =>   {
                 type: 'SELECT_COLOR',
                 payload: payload
             })
+        },
+        pullProjects: (payload) => {
+            dispatch({
+                type: 'PULL_PROJECTS',
+                payload: payload
+            })
         }
     }
 }
@@ -94,7 +104,8 @@ const mapStateToProps= (state) => {
         canvasHeight: state.canvas.height,
         selectedCanvas: state.canvas.selectedCanvas,
         color: state.tools.color,
-        frames: state.history.frames
+        frames: state.history.frames,
+        projectName: state.canvas.projectName
     }
 }
 
