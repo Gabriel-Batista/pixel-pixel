@@ -33,6 +33,11 @@ const HistoryReducer= (state= defaultState, action) => {
         case 'LOAD_PROJECT':
             return {...state, frames: action.payload, selectedHistory: []}
 
+        case 'DELETE_FRAME':
+            let deleteFrames= {...state.frames}
+            delete deleteFrames[action.payload]
+            return { ...state, frames: deleteFrames }
+            
         default:
             return state
     }

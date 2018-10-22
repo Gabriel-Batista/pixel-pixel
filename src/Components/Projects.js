@@ -24,23 +24,27 @@ class Projects extends Component    {
 
     //TODO: refactor to call this function from <Frame/>
     bringCanvasToFront = (id) => {
-        this.props.selectFrame(id)
+        this.props.previewContext.clearRect(0, 0, this.props.canvasWidth, this.props.canvasHeight)
         this.props.context.clearRect(0, 0, this.props.canvasWidth, this.props.canvasHeight)
+        if (this.props.frames[id] !== undefined){
+            this.props.selectFrame(id)
 
-        let tmpImg = new Image()
-        tmpImg.src = this.props.frames[id].base64
+            let tmpImg = new Image()
+            tmpImg.src = this.props.frames[id].base64
 
-        tmpImg.onload = () => {
-            this.props.context.drawImage(tmpImg, 0, 0)
-
-            this.props.previewContext.clearRect(0, 0, this.props.canvasWidth, this.props.canvasHeight)
-            this.props.previewContext.drawImage(tmpImg, 0, 0, (this.props.canvasWidth / 3), ((this.props.canvasHeight) / 3))
+            tmpImg.onload = () => {
+                this.props.context.drawImage(tmpImg, 0, 0)
+                this.props.previewContext.drawImage(tmpImg, 0, 0, (this.props.canvasWidth / 3), ((this.props.canvasHeight) / 3))
+            }
         }
+        else {
+            this.props.setFrameId("123")
+        }
+        
     }
 
     renderProjects = () =>  {
         return this.props.projects.map((project, index) => {
-            console.log(project)
             return <ProjectCard 
                         key={index}
                         name={project.name}
@@ -130,6 +134,12 @@ const mapDispatchToProps= (dispatch) => {
         pullProjects: (payload) => {
             dispatch({
                 type: 'PULL_PROJECTS',
+                payload: payload
+            })
+        },
+        setFrameId: (payload) => {
+            dispatch({
+                type: "SET_FRAME_ID",
                 payload: payload
             })
         },

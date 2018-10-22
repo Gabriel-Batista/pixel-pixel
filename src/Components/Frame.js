@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Card, Grid } from 'semantic-ui-react';
+import { Card, Grid, Button } from 'semantic-ui-react';
 import UUID from 'uuid/v4'
+import { ProjectFetches } from '../Helpers/ProjectAdapter'
 
 import Preview from './Preview'
 
@@ -14,6 +15,12 @@ class Frame extends Component   {
         // this.props.updateFrame({ id: this.props.selectedFrame, base64: this.props.canvasRef.current.toDataURL()})
         this.props.context.clearRect(0, 0, this.props.canvasWidth, this.props.canvasHeight)
         this.props.selectFrame(id)
+    }
+
+    deleteFrame= (id) => {
+        ProjectFetches.fetchDeleteFrame(id)
+        .then(res => this.props.deleteFrame(id))
+        this.props.setFrameId("123")
     }
 
     bringCanvasToFront= (id) =>   {
@@ -42,6 +49,7 @@ class Frame extends Component   {
                         onClick={(e) => this.bringCanvasToFront(frame.id)}>
                         <Grid.Column width={4}>
                             <Preview canvasToRender={tmpImg}></Preview>
+                            <Button onClick={() => this.deleteFrame(frame.id)}></Button>
                         </Grid.Column>
                         <Grid.Column width={12}>{frame.id}</Grid.Column>
                     </Grid>
@@ -103,6 +111,12 @@ const mapDispatchToProps = (dispatch) => {
         updateFrame: (payload) => {
             dispatch({
                 type: "UPDATE_FRAME",
+                payload: payload
+            })
+        },
+        deleteFrame: (payload) => {
+            dispatch({
+                type: "DELETE_FRAME",
                 payload: payload
             })
         }

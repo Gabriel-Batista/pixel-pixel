@@ -18,7 +18,7 @@ class Gif extends Component {
 
     renderGifFrame= () =>   {
         setInterval(() => {
-            if(this.props.frames.length !== 0)  {
+            if(Object.keys(this.props.frames).length !== 0)  {
                 this.setState({
                     currentFrame: (this.state.currentFrame + 1) % Object.keys(this.props.frames).length
                 })

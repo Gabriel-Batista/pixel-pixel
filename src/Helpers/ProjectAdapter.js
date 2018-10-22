@@ -34,6 +34,13 @@ export const ProjectFetches = {
             body: JSON.stringify(data)
         })
         .then(res => res.json())
+    },
+    fetchDeleteFrame: (id) => {
+        return fetch(fetchConsts.API + '/frames' + `/${id}`, {
+            method: 'DELETE',
+            headers: fetchConsts.HEADERS
+        })
+            .then(res => res.json())
     }
 }
 
