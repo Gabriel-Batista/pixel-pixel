@@ -1,27 +1,32 @@
 const defaultState = {
-    history: [],
-    frames: [],
+    selectedHistory: [],
+    frames: {},
     gif: null,
-    saved: true
+    saved: true,
+    base64: ""
 }
 
 const HistoryReducer= (state= defaultState, action) => {
     switch(action.type) {
         case 'PUSH_HISTORY':
-            let newHistory = [...state.history, action.payload]
-            return { ...state, history: newHistory }
+            let newHistory = [...state.selectedHistory, action.payload]
+            return { ...state, selectedHistory: newHistory }
 
         case 'PUSH_FRAME':
-            let newFrames = [...state.frames, {history: state.history, canvasURL: action.payload}]
-            return { frames: newFrames, history: [] }
+            let pushedFrames = {...state.frames}
+            pushedFrames[action.payload.id] = { id: action.payload.id, history: state.selectedHistory, base64: action.payload.base64 }
+            return { ...state, frames: pushedFrames, selectedHistory: [] }
 
-        //TODO: Implement Gif Feature
-        // case 'SAVE_GIF':
-        //     return {...state, gif: action.payload}
+        case 'NEW_FRAME':
+        console.log("action:", action)
+            let newFrames = { ...state.frames }
+            newFrames[action.payload] = { id: action.payload, base64: "" }
+            return {...state, frames: newFrames}
 
         case 'UPDATE_FRAME':
-        let updateFrames = [...state.frames]
-        updateFrames[action.payload.index] = { ...state.frames[action.payload.index], canvasURL: action.payload.canvasURL }
+        let updateFrames = {...state.frames }
+        console.log("this thingy", updateFrames[action.payload.id])
+        updateFrames[action.payload.id] = { ...state.frames[action.payload.id], base64: action.payload.base64 }
         return {...state, frames: updateFrames}
 
         case 'SAVED_PROJECT':

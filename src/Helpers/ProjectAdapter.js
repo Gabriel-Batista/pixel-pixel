@@ -12,7 +12,9 @@ export const ProjectFetches = {
             headers: fetchConsts.HEADERS,
             body: JSON.stringify(data)
         })
-        .then(response => response.json())
+        .then(res => {
+            console.log(res.json())
+        })
     }
 }
 

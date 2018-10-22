@@ -10,7 +10,6 @@ import Login from './Components/Login'
 import Logout from './Components/Logout'
 import Projects from './Components/Projects'
 
-import _ from 'lodash'
 import { Grid, Segment, Input } from 'semantic-ui-react'
 import roundTo from './Helpers/RoundingHelper'
 
@@ -21,7 +20,6 @@ class App extends Component {
 
 
     render() {
-        console.log(this.props.status)
         return (
             <Grid  style={{ marginTop: "auto" }} centered columns={3}>
                 <Grid.Row centered>
@@ -79,8 +77,8 @@ class App extends Component {
 const mapStateToProps= (state) =>   {
     return {
         canvasRef: state.canvas.canvasRef,
-        history: state.history.history,
-        selectedFrame: state.canvas.selectedFrame,
+        history: state.history.selectedHistory,
+        selectedFrame: state.canvas.frameId,
         status: state.users.status,
         projectName: state.canvas.projectName
     }

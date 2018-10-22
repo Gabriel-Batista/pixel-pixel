@@ -1,22 +1,27 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Card, Grid } from 'semantic-ui-react';
+import UUID from 'uuid/v4'
 
 import Preview from './Preview'
 
 class Frame extends Component   {
 
     newFrame = () => {
+        const id = UUID()
+        this.props.newFrame(id)
+
+        // this.props.updateFrame({ id: this.props.selectedFrame, base64: this.props.canvasRef.current.toDataURL()})
         this.props.context.clearRect(0, 0, this.props.canvasWidth, this.props.canvasHeight)
-        this.props.pushFrame(this.props.canvasRef.current.toDataURL())
-        this.props.selectFrame(this.props.selectedCanvas + 1)
+        this.props.selectFrame(id)
     }
 
-    bringCanvasToFront= (index) =>   {
-        this.props.selectFrame(index)
+    bringCanvasToFront= (id) =>   {
+        this.props.selectFrame(id)
 
         let tmpImg = new Image()
-        tmpImg.src = this.props.frames[index].canvasURL
+        console.log("focusFrame:", this.props.frames)
+        tmpImg.src = this.props.frames[id].base64
 
         this.props.context.clearRect(0, 0, this.props.canvasWidth, this.props.canvasHeight)
         tmpImg.onload= () => {
@@ -28,17 +33,17 @@ class Frame extends Component   {
     }
 
     renderFrames= () => {
-        return this.props.frames.map((frame, index) => {
+        return Object.values(this.props.frames).map((frame) => {
             let tmpImg = new Image()
-            tmpImg.src = frame.canvasURL
+            tmpImg.src = frame.base64
             return (
-                <Card.Header key={index} style={{ display: "inline-block", marginLeft:"25px", float:"left"}}>
+                <Card.Header key={frame.id} data-id={frame.id} style={{ display: "inline-block", marginLeft:"25px", float:"left"}}>
                     <Grid
-                        onClick={(e) => this.bringCanvasToFront(index)}>
+                        onClick={(e) => this.bringCanvasToFront(frame.id)}>
                         <Grid.Column width={4}>
                             <Preview canvasToRender={tmpImg}></Preview>
                         </Grid.Column>
-                        <Grid.Column width={12}>{index}</Grid.Column>
+                        <Grid.Column width={12}>{frame.id}</Grid.Column>
                     </Grid>
                 </Card.Header>
             )
@@ -64,7 +69,8 @@ const mapStateToProps= (state) =>   {
         canvasWidth: state.canvas.width,
         canvasHeight: state.canvas.height,
         previewContext: state.canvas.previewContext,
-        selectedCanvas: state.canvas.selectedFrame
+        selectedFrame: state.canvas.selectedFrame,
+        frameId: state.canvas.frameId
     }
 }
 
@@ -82,6 +88,24 @@ const mapDispatchToProps = (dispatch) => {
                 payload: payload
             })
         },
+        setFrameId: (payload) => {
+            dispatch({
+                type: "SET_FRAME_ID",
+                payload: payload
+            })
+        },
+        newFrame: (payload) => {
+            dispatch({
+                type: "NEW_FRAME",
+                payload: payload
+            })
+        },
+        updateFrame: (payload) => {
+            dispatch({
+                type: "UPDATE_FRAME",
+                payload: payload
+            })
+        }
     }
 }
 

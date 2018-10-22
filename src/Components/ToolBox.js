@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { SketchPicker } from 'react-color'
-import { ProjectAdapter } from '../Helpers/ProjectAdapter'
+import { ProjectFetches } from '../Helpers/ProjectAdapter'
 
 class ToolBox extends Component   {
     saveFrame= () => {
-        this.props.pushFrame(this.props.canvasRef.current.toDataURL())
-        this.props.context.clearRect(0, 0, this.props.canvasWidth, this.props.canvasHeight)
-        this.props.selectFrame(this.props.selectedCanvas + 1)
-        ProjectAdapter.fetchCreateProject({
+        // this.props.pushFrame(this.props.canvasRef.current.toDataURL())
+        // this.props.context.clearRect(0, 0, this.props.canvasWidth, this.props.canvasHeight)
+        // this.props.selectFrame(this.props.selectedCanvas + 1)
+        console.log(this.props.frames)
+        ProjectFetches.fetchCreateProject({
             token: localStorage.getItem('token'),
             frames: this.props.frames
         })

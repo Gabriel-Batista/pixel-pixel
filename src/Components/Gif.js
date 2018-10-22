@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Animated_GIF from '../../node_modules/animated_gif/dist/Animated_GIF.min.js'
+// import Animated_GIF from '../../node_modules/animated_gif/dist/Animated_GIF.min.js'
 
 class Gif extends Component {
     constructor(props)  {
@@ -17,14 +17,13 @@ class Gif extends Component {
     }
 
     renderGifFrame= () =>   {
-
         setInterval(() => {
             if(this.props.frames.length !== 0)  {
                 this.setState({
-                    currentFrame: (this.state.currentFrame + 1) % this.props.frames.length
+                    currentFrame: (this.state.currentFrame + 1) % Object.keys(this.props.frames).length
                 })
                 const tmpImg = new Image()
-                tmpImg.src = this.props.frames[this.state.currentFrame].canvasURL
+                tmpImg.src = Object.values(this.props.frames)[this.state.currentFrame].base64
                 this.gifContext.clearRect(0, 0, this.props.canvasWidth, this.props.canvasHeight)
                 this.gifContext.drawImage(tmpImg,0, 0, this.props.canvasWidth/3, this.props.canvasHeight/3)
             }
@@ -51,7 +50,7 @@ const mapStateToProps= (state) => {
         frames: state.history.frames,
         canvasWidth: state.canvas.width,
         canvasHeight: state.canvas.height,
-        gif: state.history.gif
+        gif: state.history.gif,
     }
 }
 

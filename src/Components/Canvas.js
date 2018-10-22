@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import UUID from 'uuid/v4'
 
 import { getMousePosition } from '../Helpers/MouseTracker'
 
@@ -16,6 +17,15 @@ class Canvas extends Component   {
     componentDidMount= () =>    {
         this.props.setContext(this.canvasRef.current.getContext('2d'))
         this.props.setGridContext(this.gridRef.current.getContext('2d'))
+        
+        if (Object.keys(this.props.frames).length === 0 )    {
+            let id = UUID()
+            this.props.pushFrame({ id: id, base64: "" })
+            this.props.selectFrame(id)
+        }
+        else    {
+            this.props.selectFrame(this.props.frames[Object.keys(this.props.frames)[0].id])
+        }
     }
 
 
@@ -44,7 +54,6 @@ class Canvas extends Component   {
     //===============================TOOLS================================
 
     draw= (position, original) => {
-        console.log(original)
         // Makes sure that user isn't drawing over the same square repeatedly
         if (this.props.history.length === 0 || position.x !== this.props.history[this.props.history.length - 1].x || position.y !== this.props.history[this.props.history.length - 1].y){
             this.props.pushHistory({ action: "draw", x: position.x, y: position.y, originalX: original.x, originalY: original.y })
@@ -65,6 +74,8 @@ class Canvas extends Component   {
                 return this.draw
             case 'eraser':
                 return this.erase
+            default:
+                return this.draw
         }
     }
     //============================ENDTOOLS================================
@@ -91,7 +102,7 @@ class Canvas extends Component   {
                             this.getTool()(getMousePosition(e), { x: e.clientX, y: e.clientY })
                         }
                     }}
-                    onMouseUp={() => this.props.updateFrame({ index: this.props.selectedCanvas, canvasURL: this.props.canvasRef.current.toDataURL() })}
+                    onMouseUp={() => this.props.updateFrame({ id: this.props.selectedCanvas, base64: this.props.canvasRef.current.toDataURL() })}
                 ></canvas>
                 <canvas 
                 ref={this.canvasRef} 
@@ -143,7 +154,19 @@ const mapDispatchToProps= (dispatch) =>   {
                 type: 'UPDATE_FRAME',
                 payload: payload
             })
-        }
+        },
+        pushFrame: (payload) => {
+            dispatch({
+                type: 'PUSH_FRAME',
+                payload: payload
+            })
+        },
+        selectFrame: (payload) => {
+            dispatch({
+                type: 'SET_SELECTED_FRAME',
+                payload: payload
+            })
+        },
     }
 }
 
@@ -154,12 +177,13 @@ const mapStateToProps= (state) => {
         pixelSize: state.canvas.pixelSize,
         grid: state.canvas.grid,
         currentTool: state.tools.currentTool,
-        history: state.history.history,
+        history: state.history.selectedHistory,
         canvasHeight: state.canvas.height,
         canvasWidth: state.canvas.width,
         canvasRef: state.canvas.canvasRef,
         color: state.tools.color,
-        selectedCanvas: state.canvas.selectedFrame
+        selectedCanvas: state.canvas.frameId,
+        frames: state.history.frames
 
     }
 }
