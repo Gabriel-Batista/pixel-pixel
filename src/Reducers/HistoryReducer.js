@@ -18,19 +18,21 @@ const HistoryReducer= (state= defaultState, action) => {
             return { ...state, frames: pushedFrames, selectedHistory: [] }
 
         case 'NEW_FRAME':
-        console.log("action:", action)
             let newFrames = { ...state.frames }
             newFrames[action.payload] = { id: action.payload, base64: "" }
             return {...state, frames: newFrames}
 
         case 'UPDATE_FRAME':
-        let updateFrames = {...state.frames }
-        console.log("this thingy", updateFrames[action.payload.id])
-        updateFrames[action.payload.id] = { ...state.frames[action.payload.id], base64: action.payload.base64 }
-        return {...state, frames: updateFrames}
+            let updateFrames = {...state.frames }
+            console.log("this thingy", updateFrames[action.payload.id])
+            updateFrames[action.payload.id] = { ...state.frames[action.payload.id], base64: action.payload.base64 }
+            return {...state, frames: updateFrames}
 
         case 'SAVED_PROJECT':
             return {...state, saved: true}
+
+        case 'LOAD_PROJECT':
+            return {...state, frames: action.payload, selectedHistory: []}
 
         default:
             return state

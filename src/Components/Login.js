@@ -18,10 +18,6 @@ class Login extends Component {
     login= () => {
         UserFetches.fetchUser({username: this.state.username, password: this.state.password})
         .then(res => {
-            console.log(res)
-            return res
-        })
-        .then(res => {
             if('error' in res)    {
                 this.props.toggleError('login')
             }

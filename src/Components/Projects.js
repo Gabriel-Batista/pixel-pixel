@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import { Button, Modal, Grid } from 'semantic-ui-react'
 import ProjectCard from './ProjectCard'
 
+import { ProjectFetches } from '../Helpers/ProjectAdapter'
+
 class Projects extends Component    {
     state = {
         open: false,
@@ -11,9 +13,18 @@ class Projects extends Component    {
         password: ""
     }
 
+    loadProject= (project) =>   {
+        ProjectFetches.fetchProjectFrames(project.id)
+            .then(res => this.props.loadProject(res))
+    }
+
     renderProjects = () =>  {
-        return this.props.projects.map(project => {
-            return <ProjectCard name={project.name}></ProjectCard>
+        return this.props.projects.map((project, index) => {
+            return <ProjectCard 
+                        key={index}
+                        name={project.name}
+                handleClick={() => this.loadProject(project)}
+                    ></ProjectCard>
         })
     }
 
@@ -58,6 +69,12 @@ const mapDispatchToProps= (dispatch) => {
         setProject: (payload) =>   {
             dispatch({
                 type: "SET_PROJECT",
+                payload: payload
+            })
+        },
+        loadProject: (payload) => {
+            dispatch({
+                type: "LOAD_PROJECT",
                 payload: payload
             })
         }

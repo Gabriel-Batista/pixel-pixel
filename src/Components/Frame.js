@@ -33,6 +33,7 @@ class Frame extends Component   {
     }
 
     renderFrames= () => {
+        console.log("here:", this.props.frames)
         return Object.values(this.props.frames).map((frame) => {
             let tmpImg = new Image()
             tmpImg.src = frame.base64

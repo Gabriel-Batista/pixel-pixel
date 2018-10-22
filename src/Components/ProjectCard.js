@@ -3,7 +3,7 @@ import { Card } from 'semantic-ui-react'
 
 const ProjectCard = (props) => {
     return (
-        <Card raised>
+        <Card raised onClick={props.handleClick}>
             <Card.Content>
                 <Card.Header>{props.name}</Card.Header>
                 <Card.Meta>
