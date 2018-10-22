@@ -24,7 +24,6 @@ const HistoryReducer= (state= defaultState, action) => {
 
         case 'UPDATE_FRAME':
             let updateFrames = {...state.frames }
-            console.log("this thingy", updateFrames[action.payload.id])
             updateFrames[action.payload.id] = { ...state.frames[action.payload.id], base64: action.payload.base64 }
             return {...state, frames: updateFrames}
 

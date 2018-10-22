@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import UUID from 'uuid/v4'
 
+import { ProjectFetches } from '../Helpers/ProjectAdapter'
+
 import { getMousePosition } from '../Helpers/MouseTracker'
 
 
@@ -49,6 +51,18 @@ class Canvas extends Component   {
 
         this.props.gridContext.lineWidth = .5
         this.props.gridContext.stroke();
+    }
+
+    updateProject= () => {
+        this.props.updateFrame({ id: this.props.selectedCanvas, base64: this.props.canvasRef.current.toDataURL() })
+        console.log(this.props.projectName)
+        ProjectFetches.fetchUpdateProject({
+            projectId: this.props.projectId,
+            frameId: this.props.selectedCanvas,
+            token: localStorage.getItem('token'),
+            name: this.props.projectName,
+            frame: this.props.canvasRef.current.toDataURL()
+        })
     }
 
     //===============================TOOLS================================
@@ -102,7 +116,7 @@ class Canvas extends Component   {
                             this.getTool()(getMousePosition(e), { x: e.clientX, y: e.clientY })
                         }
                     }}
-                    onMouseUp={() => this.props.updateFrame({ id: this.props.selectedCanvas, base64: this.props.canvasRef.current.toDataURL() })}
+                    onMouseUp={() => this.updateProject()}
                 ></canvas>
                 <canvas 
                 ref={this.canvasRef} 
@@ -183,8 +197,9 @@ const mapStateToProps= (state) => {
         canvasRef: state.canvas.canvasRef,
         color: state.tools.color,
         selectedCanvas: state.canvas.frameId,
-        frames: state.history.frames
-
+        frames: state.history.frames,
+        projectId: state.projects.projectId,
+        projectName: state.projects.projectName
     }
 }
 

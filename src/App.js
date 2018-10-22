@@ -95,7 +95,7 @@ const mapStateToProps= (state) =>   {
         history: state.history.selectedHistory,
         selectedFrame: state.canvas.frameId,
         status: state.users.status,
-        projectName: state.canvas.projectName,
+        projectName: state.projects.projectName,
     }
 }
 

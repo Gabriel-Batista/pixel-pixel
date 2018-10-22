@@ -14,6 +14,9 @@ class Projects extends Component    {
     }
 
     loadProject= (project) =>   {
+        console.log(project)
+        this.props.setProjectId(project.id)
+        this.props.changeProjectName(project.name)
         ProjectFetches.fetchProjectFrames(project.id)
             .then(res => this.props.loadProject(res))
             .then(res => this.bringCanvasToFront(Object.keys(this.props.frames)[0]))
@@ -36,8 +39,8 @@ class Projects extends Component    {
     }
 
     renderProjects = () =>  {
-        console.log(this.props.projects)
         return this.props.projects.map((project, index) => {
+            console.log(project)
             return <ProjectCard 
                         key={index}
                         name={project.name}
@@ -104,6 +107,18 @@ const mapDispatchToProps= (dispatch) => {
         selectFrame: (payload) => {
             dispatch({
                 type: 'SET_SELECTED_FRAME',
+                payload: payload
+            })
+        },
+        setProjectId: (payload) => {
+            dispatch({
+                type: 'SET_PROJECT_ID',
+                payload: payload
+            })
+        },
+        changeProjectName: (payload) => {
+            dispatch({
+                type: 'CHANGE_PROJECT_NAME',
                 payload: payload
             })
         },

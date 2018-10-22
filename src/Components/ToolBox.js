@@ -5,10 +5,6 @@ import { ProjectFetches } from '../Helpers/ProjectAdapter'
 
 class ToolBox extends Component   {
     saveFrame= () => {
-        // this.props.pushFrame(this.props.canvasRef.current.toDataURL())
-        // this.props.context.clearRect(0, 0, this.props.canvasWidth, this.props.canvasHeight)
-        // this.props.selectFrame(this.props.selectedCanvas + 1)
-        console.log(this.props.frames)
         ProjectFetches.fetchCreateProject({
             token: localStorage.getItem('token'),
             name: this.props.projectName,
@@ -105,7 +101,7 @@ const mapStateToProps= (state) => {
         selectedCanvas: state.canvas.selectedCanvas,
         color: state.tools.color,
         frames: state.history.frames,
-        projectName: state.canvas.projectName
+        projectName: state.projects.projectName
     }
 }
 

@@ -24,9 +24,16 @@ export const ProjectFetches = {
             res.forEach(frame => {
                 frames[frame.local_id] = {id: frame.local_id, history: [], base64: frame.base64}
             })
-            console.log(frames)
             return frames
         })
+    },
+    fetchUpdateProject: (data) => {
+        return fetch(fetchConsts.API + '/projects' + `/${data.projectId}`, {
+            method: 'PATCH',
+            headers: fetchConsts.HEADERS,
+            body: JSON.stringify(data)
+        })
+        .then(res => res.json())
     }
 }
 
