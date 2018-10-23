@@ -4,8 +4,8 @@ const defaultState = {
     gridContext: null,
     previewContext: null,
     pixelSize: 24,
-    height: 817,
-    width: 816,
+    height: 1200,
+    width: 1200,
     grid: true,
     canvasRef: null,
 }

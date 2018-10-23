@@ -109,7 +109,7 @@ class Canvas extends Component   {
                     ref={this.gridRef}
                     height={this.props.canvasHeight + "px"}
                     width={this.props.canvasWidth + "px"}
-                    style={{ border: "1px solid black", position: "absolute" }}
+                    style={{ border: "1px solid black", position: "absolute", left: "27.5px", zIndex:"9999" }}
                     onMouseDown={(e) => this.getTool()(getMousePosition(e), { x: e.clientX, y: e.clientY })}
                     onMouseMove={(e) => {
                         if (e.buttons === 1) {
@@ -122,7 +122,13 @@ class Canvas extends Component   {
                 ref={this.canvasRef} 
                 height={this.props.canvasHeight + "px"} 
                 width={this.props.canvasWidth + "px"}
-                style={{ border: "1px solid black" }}
+                style={{ border: "1px solid black", position: "absolute", left:"27.5px", zIndex:"0" }}
+                ></canvas>
+                <canvas
+                    display="hidden"
+                    height={this.props.canvasHeight + "px"}
+                    width={this.props.canvasWidth + "px"}
+                    style={{ zIndex: "-100" }}
                 ></canvas>
             </div>
         )
