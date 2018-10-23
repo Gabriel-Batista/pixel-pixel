@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './App.css';
 
 import Canvas from './Components/Canvas'
 import ToolBox from './Components/ToolBox'
@@ -56,6 +55,9 @@ class App extends Component {
                             <Input
                                 value={this.props.projectName}
                                 onChange={(e) => this.props.changeProjectName(e.target.value)}
+                                size="massive"
+                                label="Title:"
+                                style={{width:"100%"}}
                             ></Input>
                         </Segment>
                         <Segment style={{ position: "relative" }}>
@@ -72,6 +74,7 @@ class App extends Component {
                             <div>PREVIEW</div>
                             {this.props.canvasRef ? 
                                 <Preview 
+                                    border
                                     canvasToRender={this.props.canvasRef.current} 
                                     history={this.props.history}
                                 ></Preview>

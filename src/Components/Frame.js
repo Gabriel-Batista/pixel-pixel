@@ -4,7 +4,7 @@ import { Card, Grid, Button } from 'semantic-ui-react';
 import UUID from 'uuid/v4'
 import { ProjectFetches } from '../Helpers/ProjectAdapter'
 
-import Preview from './Preview'
+import FrameCard from './FrameCard'
 
 class Frame extends Component   {
 
@@ -19,13 +19,13 @@ class Frame extends Component   {
         .then(console.log)
     }
 
-    deleteFrame= (id) => {
+    deleteFrame = (id) => {
         ProjectFetches.fetchDeleteFrame(id)
-        .then(res => this.props.deleteFrame(id))
+            .then(res => this.props.deleteFrame(id))
         this.props.setFrameId("123")
     }
 
-    bringCanvasToFront= (id) =>   {
+    bringCanvasToFront = (id) => {
         this.props.selectFrame(id)
 
         let tmpImg = new Image()
@@ -33,7 +33,7 @@ class Frame extends Component   {
         tmpImg.src = this.props.frames[id].base64
 
         this.props.context.clearRect(0, 0, this.props.canvasWidth, this.props.canvasHeight)
-        tmpImg.onload= () => {
+        tmpImg.onload = () => {
             this.props.context.drawImage(tmpImg, 0, 0)
 
             this.props.previewContext.clearRect(0, 0, this.props.canvasWidth, this.props.canvasHeight)
@@ -46,16 +46,12 @@ class Frame extends Component   {
             let tmpImg = new Image()
             tmpImg.src = frame.base64
             return (
-                <Card.Header key={frame.id} data-id={frame.id} style={{ display: "inline-block", marginLeft:"25px", float:"left"}}>
-                    <Grid
-                        onClick={(e) => this.bringCanvasToFront(frame.id)}>
-                        <Grid.Column width={4}>
-                            <Preview canvasToRender={tmpImg}></Preview>
-                            <Button onClick={() => this.deleteFrame(frame.id)}></Button>
-                        </Grid.Column>
-                        <Grid.Column width={12}>{frame.id}</Grid.Column>
-                    </Grid>
-                </Card.Header>
+                <FrameCard 
+                    frame={frame} 
+                    tmpImg={tmpImg} 
+                    deleteFrame={this.deleteFrame} 
+                    bringCanvasToFront={this.bringCanvasToFront}
+                ></FrameCard>
             )
         })
     }

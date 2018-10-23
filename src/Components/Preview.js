@@ -5,7 +5,7 @@ class Preview extends Component   {
     constructor(props)  {
         super(props)
         this.previewRef = React.createRef()
-        
+        this.style = this.props.border ? { border: "1px solid black" } : {}
         this.state = {
             previewContext: null
         }
@@ -38,7 +38,7 @@ class Preview extends Component   {
                 ref={this.previewRef}
                 height={(this.props.canvasHeight/3) + 2 + "px"}
                 width={(this.props.canvasWidth/3) + 2 + "px"}
-                style={{ border: "1px solid black"}}
+                style={this.style}
             ></canvas>
         )
     }
