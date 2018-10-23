@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { SketchPicker } from 'react-color'
+import { SketchPicker, CirclePicker } from 'react-color'
 import { ProjectFetches } from '../Helpers/ProjectAdapter'
+import { Button, Grid } from 'semantic-ui-react'
+import Styles from '../Styles/Styles'
 
 class ToolBox extends Component   {
     saveFrame= () => {
@@ -22,28 +24,48 @@ class ToolBox extends Component   {
 
     render() {
         return  (
-            <div>
-                <button
-                    onClick={this.props.selectBrush}>
-                    Brush
-                </button>
-                <button
-                    onClick={this.props.selectEraser}>
-                    Eraser
-                </button>
-                <button
-                    onClick={this.props.toggleGrid}>
-                    Grid
-                </button>
-                <button
-                    onClick={() => {this.saveFrame()}}>
-                    Save
-                </button>
-                <SketchPicker
-                    color={this.props.color}
-                    onChangeComplete={this.handleChangeComplete}
+            <Grid>
+                <Grid.Row width={7}>
+                    <div style={Styles.colorPicker}>
+                        <CirclePicker
+                        circleSize={90}
+                        width="100%"
+                        height="25em"
+                        color={this.props.color}
+                        onChangeComplete={this.handleChangeComplete}
                     />
-            </div>
+                    </div>
+                    
+                </Grid.Row>
+                <Grid.Row width={7}>
+                    <Button
+                        fluid
+                        onClick={this.props.selectBrush}
+                        size="massive"
+                        style={Styles.toolsButton}
+                    >BRUSH</Button>
+                    <Button
+                        fluid
+                        onClick={this.props.selectEraser}
+                        size="massive"
+                        style={Styles.toolsButton}
+                    >ERASER</Button>
+                    <Button
+                        fluid
+                        onClick={this.props.toggleGrid}
+                        size="massive"
+                        style={Styles.toolsButton}
+                    >GRID</Button>
+                    <Button
+                        fluid
+                        onClick={() => { this.saveFrame() }}
+                        size="massive"
+                        style={Styles.toolsButton}
+                    >SAVE</Button>
+                </Grid.Row>
+                
+                
+            </Grid>
         )
     }
 }

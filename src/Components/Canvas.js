@@ -14,6 +14,8 @@ class Canvas extends Component   {
         this.canvasRef = React.createRef()
         this.props.setCanvasRef(this.canvasRef)
         this.props.setGridRef(this.gridRef)
+
+        this.cursor = "pencil"
     }
 
     componentDidMount= () =>    {
@@ -55,14 +57,16 @@ class Canvas extends Component   {
 
     updateProject= () => {
         this.props.updateFrame({ id: this.props.selectedCanvas, base64: this.props.canvasRef.current.toDataURL() })
-        console.log(this.props.projectName)
-        ProjectFetches.fetchUpdateProject({
+        if (this.props.projectId !== null)  {
+            ProjectFetches.fetchUpdateProject({
             projectId: this.props.projectId,
             frameId: this.props.selectedCanvas,
             token: localStorage.getItem('token'),
             name: this.props.projectName,
             frame: this.props.canvasRef.current.toDataURL()
         })
+        }
+        
     }
 
     //===============================TOOLS================================
@@ -109,7 +113,7 @@ class Canvas extends Component   {
                     ref={this.gridRef}
                     height={this.props.canvasHeight + "px"}
                     width={this.props.canvasWidth + "px"}
-                    style={{ border: "1px solid black", position: "absolute", left: "27.5px", zIndex:"9999" }}
+                    style={{ border: "1px solid black", position: "absolute", left: "27.5px", zIndex: "9999", cursor: this.props.cursor}}
                     onMouseDown={(e) => this.getTool()(getMousePosition(e), { x: e.clientX, y: e.clientY })}
                     onMouseMove={(e) => {
                         if (e.buttons === 1) {
@@ -205,7 +209,8 @@ const mapStateToProps= (state) => {
         selectedCanvas: state.canvas.frameId,
         frames: state.history.frames,
         projectId: state.projects.projectId,
-        projectName: state.projects.projectName
+        projectName: state.projects.projectName,
+        cursor: state.tools.cursor
     }
 }
 

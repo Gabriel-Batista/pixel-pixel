@@ -12,6 +12,14 @@ const Styles = {
     },
     addIcon: {
         marginLeft:"25px"
+    },
+    toolsButton: {
+        margin:"25px"
+    },
+    colorPicker: {
+        marginLeft:"35px",
+        marginTop:"25px"
+
     }
 }
 
