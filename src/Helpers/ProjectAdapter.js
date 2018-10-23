@@ -41,6 +41,14 @@ export const ProjectFetches = {
             headers: fetchConsts.HEADERS
         })
             .then(res => res.json())
+    },
+    fetchCreateFrame: (data) => {
+        return fetch(fetchConsts.API + '/frames', {
+            method: 'POST',
+            headers: fetchConsts.HEADERS,
+            body: JSON.stringify(data)
+        })
+        .then(res => res.json())
     }
 }
 

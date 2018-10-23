@@ -15,6 +15,8 @@ class Frame extends Component   {
         // this.props.updateFrame({ id: this.props.selectedFrame, base64: this.props.canvasRef.current.toDataURL()})
         this.props.context.clearRect(0, 0, this.props.canvasWidth, this.props.canvasHeight)
         this.props.selectFrame(id)
+        ProjectFetches.fetchCreateFrame({project_id: this.props.projectId, frame_id: id, base64: ""})
+        .then(console.log)
     }
 
     deleteFrame= (id) => {
@@ -78,7 +80,8 @@ const mapStateToProps= (state) =>   {
         canvasHeight: state.canvas.height,
         previewContext: state.canvas.previewContext,
         selectedFrame: state.canvas.selectedFrame,
-        frameId: state.canvas.frameId
+        frameId: state.canvas.frameId,
+        projectId: state.projects.projectId
     }
 }
 

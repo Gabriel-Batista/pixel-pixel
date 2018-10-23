@@ -14,7 +14,6 @@ class Projects extends Component    {
     }
 
     loadProject= (project) =>   {
-        console.log(project)
         this.props.setProjectId(project.id)
         this.props.changeProjectName(project.name)
         ProjectFetches.fetchProjectFrames(project.id)
