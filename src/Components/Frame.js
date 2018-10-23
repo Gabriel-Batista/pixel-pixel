@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Card, Grid, Button } from 'semantic-ui-react';
+import { Button, Icon } from 'semantic-ui-react';
 import UUID from 'uuid/v4'
 import { ProjectFetches } from '../Helpers/ProjectAdapter'
+import Styles from '../Styles/Styles'
 
 import FrameCard from './FrameCard'
 
@@ -21,15 +22,15 @@ class Frame extends Component   {
 
     deleteFrame = (id) => {
         ProjectFetches.fetchDeleteFrame(id)
-            .then(res => this.props.deleteFrame(id))
-        this.props.setFrameId("123")
+        .then(res => this.props.deleteFrame(id))
+        this.bringCanvasToFront(Object.values(this.props.frames)[0].id)
     }
 
     bringCanvasToFront = (id) => {
+        console.log("Hit")
         this.props.selectFrame(id)
 
         let tmpImg = new Image()
-        console.log("focusFrame:", this.props.frames)
         tmpImg.src = this.props.frames[id].base64
 
         this.props.context.clearRect(0, 0, this.props.canvasWidth, this.props.canvasHeight)
@@ -60,7 +61,16 @@ class Frame extends Component   {
         return  (
             <div style={{ overflowX: "scroll", display: "flex", flexDirection: "row" }}>
                 {this.renderFrames()}
-                <button onClick={this.newFrame}>NEW</button>
+                <Button 
+                    onClick={this.newFrame}
+                    style={Styles.newFrameButton}
+                >
+                    <Icon 
+                        name="add" 
+                        size="huge"
+                        style={Styles.addIcon}
+                    ></Icon>
+                </Button>
             </div>
             
         )
@@ -85,7 +95,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         selectFrame: (payload) => {
             dispatch({
-                type: 'SET_SELECTED_FRAME',
+                type: 'SET_FRAME_ID',
                 payload: payload
             })
         },

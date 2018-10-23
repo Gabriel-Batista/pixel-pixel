@@ -24,9 +24,6 @@ const CanvasReducer= (state = defaultState, action) => {
         case 'TOGGLE_GRID':
             return { ...state, grid: !state.grid }
 
-        case 'SET_SELECTED_FRAME':
-            return {...state, frameId: action.payload}
-
         case 'SET_PREVIEW_CONTEXT':
             return {...state, previewContext: action.payload}
 

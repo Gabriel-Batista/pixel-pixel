@@ -73,7 +73,7 @@ const mapDispatchToProps= (dispatch) =>   {
         },
         selectFrame: (payload) => {
             dispatch({
-                type: 'SET_SELECTED_FRAME',
+                type: 'SET_FRAME_ID',
                 payload: payload
             })
         },

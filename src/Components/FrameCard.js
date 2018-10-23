@@ -13,22 +13,18 @@ const FrameCard= (props) => {
     return (
             <Card 
                 raised 
-                onClick={(e) => props.bringCanvasToFront(props.frame.id)}
                 style={{ ...Styles.frameCard, width: `${props.canvasWidth / 3 + 2}px`}}
             >
-                <Preview canvasToRender={props.tmpImg}></Preview>
-                <Card.Header 
-                    key={props.frame.id} 
-                    data-id={props.frame.id} 
-                    style={{ display: "inline-block", marginLeft: "25px", float: "left" }}
-                >
-                    <Grid>
-                        <Grid.Column width={4} style={{ padding: "25px" }}>
-                            <Button onClick={() => props.deleteFrame(props.frame.id)}>DELETE</Button>
-                        </Grid.Column>
-                        <Grid.Column width={12}>{props.frame.id}</Grid.Column>
-                    </Grid>
+                <Card.Header>
+                    <Preview 
+                        canvasToRender={props.tmpImg}
+                        onClick={(e) => props.bringCanvasToFront(props.frame.id)}
+                    ></Preview>
                 </Card.Header>
+                <Button 
+                    onClick={() => props.deleteFrame(props.frame.id)}
+                    style={Styles.deleteButton}
+                >DELETE</Button>
             </Card>
     )
 }
