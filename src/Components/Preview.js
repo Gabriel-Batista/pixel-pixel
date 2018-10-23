@@ -36,8 +36,8 @@ class Preview extends Component   {
         return (
             <canvas
                 ref={this.previewRef}
-                height={(this.props.canvasHeight/3) + 1 + "px"}
-                width={(this.props.canvasWidth/3) + "px"}
+                height={(this.props.canvasHeight/3) + 2 + "px"}
+                width={(this.props.canvasWidth/3) + 2 + "px"}
                 style={{ border: "1px solid black"}}
             ></canvas>
         )

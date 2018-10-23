@@ -35,8 +35,8 @@ class Gif extends Component {
         return  (
             <canvas
                 ref={this.gifRef}
-                height={(this.props.canvasHeight/3) + "px"}
-                width={(this.props.canvasWidth/3) + "px"}
+                height={(this.props.canvasHeight/3) + 2 + "px"}
+                width={(this.props.canvasWidth/3) + 2 + "px"}
                 style={{ border: "1px solid black" }}
             ></canvas>
 
