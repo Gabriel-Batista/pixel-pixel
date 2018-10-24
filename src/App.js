@@ -57,16 +57,6 @@ class App extends Component {
                             </Header>
                             <ToolBox></ToolBox>
                         </Segment>
-                        <Segment style={Styles.SegmentBGColor}>
-                            <Header textAlign="center" size='huge' style={{ marginTop: "20px", marginBottom:"40px", color: "#FFFFFF" }}>
-                                <Header.Content>FRAMES</Header.Content>
-                            </Header>
-                            <NewButton></NewButton>
-                            {this.props.status === "logged in" ? <SaveButton/> : null}
-                            {this.props.status === "logged in" ? <Projects/> : null}
-                            <GridButton></GridButton>
-                            {this.props.status === "logged out" ? <Login /> : <Logout />}
-                        </Segment>
                     </Grid.Column>
                     {/* CENTER COLUMN */}
                     <Grid.Column >
@@ -114,6 +104,16 @@ class App extends Component {
                                     ></Preview>
                                 
                             : null}
+                        </Segment>
+                        <Segment style={Styles.SegmentBGColor}>
+                            <Header textAlign="center" size='huge' style={{ marginTop: "20px", marginBottom: "40px", color: "#FFFFFF" }}>
+                                <Header.Content>MENU</Header.Content>
+                            </Header>
+                            <NewButton></NewButton>
+                            {this.props.status === "logged in" ? <SaveButton /> : null}
+                            {this.props.status === "logged in" ? <Projects /> : null}
+                            <GridButton></GridButton>
+                            {this.props.status === "logged out" ? <Login /> : <Logout />}
                         </Segment>
                     </Grid.Column>
 
