@@ -38,6 +38,8 @@ const HistoryReducer= (state= defaultState, action) => {
             delete deleteFrames[action.payload]
             return { ...state, frames: deleteFrames }
             
+        case 'CLEAR_HISTORY':
+            return { ...defaultState }
         default:
             return state
     }

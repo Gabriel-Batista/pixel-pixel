@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Button, Header, Modal, Form, Grid } from 'semantic-ui-react'
-import { UserFetches } from '../Helpers/UserAdapter'
-import { ProjectFetches } from '../Helpers/ProjectAdapter'
+import { UserFetches } from '../../Helpers/UserAdapter'
+import { ProjectFetches } from '../../Helpers/ProjectAdapter'
 
 import { connect } from 'react-redux'
 

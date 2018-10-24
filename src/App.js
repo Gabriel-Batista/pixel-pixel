@@ -5,11 +5,12 @@ import ToolBox from './Components/ToolBox'
 import Preview from './Components/Preview'
 import Frame from './Components/Frame'
 import Gif from './Components/Gif'
-import Login from './Components/Login'
+import Login from './Components/Buttons/LoginButton'
 import Logout from './Components/Logout'
 import Projects from './Components/Projects'
 import SaveButton from './Components/Buttons/SaveButton'
 import GridButton from './Components/Buttons/GridButton'
+import NewButton from './Components/Buttons/NewButton'
 
 import { Grid, Segment, Input, Header, Icon } from 'semantic-ui-react'
 import roundTo from './Helpers/RoundingHelper'
@@ -60,6 +61,7 @@ class App extends Component {
                             <Header textAlign="center" size='huge' style={{ marginTop: "20px", marginBottom:"40px", color: "#FFFFFF" }}>
                                 <Header.Content>FRAMES</Header.Content>
                             </Header>
+                            <NewButton></NewButton>
                             {this.props.status === "logged in" ? <SaveButton/> : null}
                             {this.props.status === "logged in" ? <Projects/> : null}
                             <GridButton></GridButton>

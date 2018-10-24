@@ -14,6 +14,9 @@ const ToolsReducer = (state = defaultState, action) => {
         case 'CHANGE_PROJECT_NAME':
             return { ...state, projectName: action.payload }
 
+        case 'CLEAR_PROJECTS':
+            return { ...defaultState }
+
         default:
             return state
     }

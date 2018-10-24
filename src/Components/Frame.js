@@ -17,7 +17,6 @@ class Frame extends Component   {
         this.props.context.clearRect(0, 0, this.props.canvasWidth, this.props.canvasHeight)
         this.props.selectFrame(id)
         ProjectFetches.fetchCreateFrame({project_id: this.props.projectId, frame_id: id, base64: ""})
-        .then(console.log)
     }
 
     deleteFrame = (id) => {
@@ -103,12 +102,6 @@ const mapDispatchToProps = (dispatch) => {
         pushFrame: (payload) => {
             dispatch({
                 type: 'PUSH_FRAME',
-                payload: payload
-            })
-        },
-        setFrameId: (payload) => {
-            dispatch({
-                type: "SET_FRAME_ID",
                 payload: payload
             })
         },
