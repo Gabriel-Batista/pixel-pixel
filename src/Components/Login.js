@@ -59,12 +59,21 @@ class Login extends Component {
 
         return (
             <div>
-                <Button onClick={this.show('blurring')}>Log in</Button>
+                <Button 
+                    fluid
+                    size="massive"
+                    onClick={this.show('blurring')}
+                    style={{ backgroundColor: "#515151", color: "#FFFFFF" }}
+                >LOGIN</Button>
 
-                <Modal dimmer={dimmer} open={open} onClose={this.close}>
-                    <Modal.Header>Log in</Modal.Header>
-                    <Modal.Content>
-                        <Modal.Description >
+                <Modal dimmer={dimmer} open={open} onClose={this.close} >
+                    <Modal.Header style={{ backgroundColor: "#1F1F1F"}}>
+                        <Header textAlign="center" size='large' style={{marginTop:"8px"}}>
+                            <Header.Content style={{ color: "#FFFFFF" }}>LOGIN</Header.Content>
+                        </Header>
+                    </Modal.Header>
+                    <Modal.Content style={{ backgroundColor: "#515151" }}>
+                        <Modal.Description>
                             <Grid textAlign='center'>
                                 <Form size="massive">
                                     <br/>
@@ -96,10 +105,10 @@ class Login extends Component {
                             </Grid>
                         </Modal.Description>
                     </Modal.Content>
-                    <Modal.Actions>
+                    <Modal.Actions style={{ backgroundColor: "#1F1F1F"}}>
                         <Button 
-                            color='lightgrey' 
                             onClick={this.signup}
+                            size="massive"
                         >
                             Sign up
                         </Button>
@@ -109,6 +118,7 @@ class Login extends Component {
                             labelPosition='right'
                             content="Login"
                             onClick={this.login}
+                            size="massive"
                         />
                     </Modal.Actions>
                 </Modal>
