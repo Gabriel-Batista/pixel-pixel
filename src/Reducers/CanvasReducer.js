@@ -3,6 +3,7 @@ const defaultState = {
     context: null,
     gridContext: null,
     previewContext: null,
+    ghostContext: null,
     pixelSize: 24,
     height: 1200,
     width: 1200,
@@ -18,6 +19,9 @@ const CanvasReducer= (state = defaultState, action) => {
         case 'SET_GRID_CONTEXT':
             return { ...state, gridContext: action.payload }
 
+        case 'SET_GHOST_CONTEXT':
+            return { ...state, ghostContext: action.payload }
+
         case 'SET_CONTEXT':
             return { ...state, context: action.payload }
 
@@ -28,6 +32,7 @@ const CanvasReducer= (state = defaultState, action) => {
             return {...state, previewContext: action.payload}
 
         case 'SET_FRAME_ID':
+            // console.log(action.payload)
             return {...state, frameId: action.payload}
         default:
             return state

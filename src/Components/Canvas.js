@@ -14,6 +14,7 @@ class Canvas extends Component   {
         super(props)
         this.gridRef = React.createRef()
         this.canvasRef = React.createRef()
+        this.ghostRef = React.createRef()
         this.props.setCanvasRef(this.canvasRef)
         this.props.setGridRef(this.gridRef)
 
@@ -23,6 +24,7 @@ class Canvas extends Component   {
     componentDidMount= () =>    {
         this.props.setContext(this.canvasRef.current.getContext('2d'))
         this.props.setGridContext(this.gridRef.current.getContext('2d'))
+        this.props.setGhostContext(this.ghostRef.current.getContext('2d'))
         
         if (Object.keys(this.props.frames).length === 0 )    {
             let id = UUID()
@@ -134,10 +136,16 @@ class Canvas extends Component   {
                 style={{ position: "absolute", zIndex:"0" }}
                 ></canvas>
                 <canvas
+                    ref={this.ghostRef}
+                    height={this.props.canvasHeight + "px"}
+                    width={this.props.canvasWidth + "px"}
+                    style={{ position: "absolute", zIndex: "0" }}
+                ></canvas>
+                <canvas
                     display="hidden"
                     height={this.props.canvasHeight + "px"}
                     width={this.props.canvasWidth + "px"}
-                    style={{ zIndex: "-1" }}
+                    style={{ zIndex: "-10" }}
                 ></canvas>
             </Card>
         )
@@ -169,6 +177,12 @@ const mapDispatchToProps= (dispatch) =>   {
         setCanvasRef: (payload) => {
             dispatch({
                 type: 'SET_CANVAS_REF',
+                payload: payload
+            })
+        },
+        setGhostContext: (payload) => {
+            dispatch({
+                type: 'SET_GHOST_CONTEXT',
                 payload: payload
             })
         },
