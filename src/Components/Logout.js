@@ -9,7 +9,12 @@ const Logout= (props) => {
     }
 
     return (
-        <Button onClick={logout}>Log out</Button>
+        <Button 
+            fluid
+            onClick={logout}
+            size="massive"
+            style={{ backgroundColor: "#515151", color: "#FFFFFF"}}
+        >LOGOUT</Button>
     )
 }
 

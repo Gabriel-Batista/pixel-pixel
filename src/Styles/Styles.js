@@ -1,3 +1,4 @@
+import { callbackify } from "util";
 
 const Styles = {
     frameCard: {
@@ -9,13 +10,18 @@ const Styles = {
     },
     deleteButton: {
         backgroundColor:"#C75146",
+        color:"#FFFFFF",
+        margin:"0",
+        width: "calc(100%)"
     },
     newFrameButton: {
         marginTop:"10px",
-        marginBottom:"25px"
+        marginBottom:"25px",
+        paddingRight:"25px",
+        paddingLeft:"25px"
     },
     addIcon: {
-        marginLeft:"25px"
+        marginBottom:"25px"
     },
     toolsButton: {
         margin:"25px"
@@ -23,8 +29,11 @@ const Styles = {
     colorPicker: {
         marginLeft:"35px",
         marginTop:"25px"
-
+    },
+    SegmentBGColor: {
+        backgroundColor:"#333333"
     }
+
 }
 
 export default Styles

@@ -8,7 +8,7 @@ const GridButton = (props) =>   {
             fluid
             onClick={props.toggleGrid}
             size="massive"
-
+            style={{ marginBottom: "25px", backgroundColor: "#515151", color: "#FFFFFF"}}
         >GRID</Button>
     )
 }

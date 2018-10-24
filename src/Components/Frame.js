@@ -62,13 +62,14 @@ class Frame extends Component   {
             <div style={{ overflowX: "scroll", display: "flex", flexDirection: "row" }}>
                 {this.renderFrames()}
                 <Button 
+                    icon
                     onClick={this.newFrame}
                     style={Styles.newFrameButton}
                 >
                     <Icon 
                         name="add" 
                         size="huge"
-                        style={Styles.addIcon}
+                        style={{verticalAlign:"middle"}}
                     ></Icon>
                 </Button>
             </div>

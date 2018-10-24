@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import UUID from 'uuid/v4'
 
+import { Card } from 'semantic-ui-react'
+
 import { ProjectFetches } from '../Helpers/ProjectAdapter'
 
 import { getMousePosition } from '../Helpers/MouseTracker'
@@ -108,12 +110,15 @@ class Canvas extends Component   {
         }
         
         return  (
-            <div>
+            <Card 
+                style={{ position: "relative", width:"98.6%"}}
+                className="ui centered"
+            >
                 <canvas
                     ref={this.gridRef}
                     height={this.props.canvasHeight + "px"}
                     width={this.props.canvasWidth + "px"}
-                    style={{ border: "1px solid black", position: "absolute", left: "27.5px", zIndex: "9999", cursor: this.props.cursor}}
+                    style={{ position: "absolute", zIndex: "9999", cursor: this.props.cursor}}
                     onMouseDown={(e) => this.getTool()(getMousePosition(e), { x: e.clientX, y: e.clientY })}
                     onMouseMove={(e) => {
                         if (e.buttons === 1) {
@@ -126,15 +131,15 @@ class Canvas extends Component   {
                 ref={this.canvasRef} 
                 height={this.props.canvasHeight + "px"} 
                 width={this.props.canvasWidth + "px"}
-                style={{ border: "1px solid black", position: "absolute", left:"27.5px", zIndex:"0" }}
+                style={{ position: "absolute", zIndex:"0" }}
                 ></canvas>
                 <canvas
                     display="hidden"
                     height={this.props.canvasHeight + "px"}
                     width={this.props.canvasWidth + "px"}
-                    style={{ zIndex: "-100" }}
+                    style={{ zIndex: "-1" }}
                 ></canvas>
-            </div>
+            </Card>
         )
     }
 }

@@ -17,6 +17,8 @@ import roundTo from './Helpers/RoundingHelper'
 import { ProjectFetches } from './Helpers/ProjectAdapter'
 import { UserFetches } from './Helpers/UserAdapter'
 
+import Styles from './Styles/Styles'
+
 import { connect } from 'react-redux'
 
 
@@ -37,33 +39,37 @@ class App extends Component {
 
     render() {
         return (
-            <Grid  style={{ marginTop: "auto" }} centered columns={3}>
+            <Grid style={{ marginTop: "auto", backgroundColor:"#1F1F1F" }} centered columns={3}>
                 <Grid.Row centered>
                     {/* LEFT COLUMN */}
                     <Grid.Column width={3}>
                         {/* LOGO */}
-                        <Segment>
-                            <div>LOGO</div>
-                            {this.props.status === "logged out" ? <Login/> : <Logout/>}
+                        <Segment style={Styles.SegmentBGColor}>
+                            <Header as="h1" textAlign="center" style={{ marginTop: "10px", color: "#FFFFFF" }}>
+                                <Header.Content>--PIXEL-PIXEL--</Header.Content>
+                            </Header>
                         </Segment>
-                        <Segment>
+                        <Segment style={Styles.SegmentBGColor}>
                             {/* TOOLBOX */}
-                            <Header textAlign="center" size='huge' style={{marginTop:"20px"}}>
-                                <Header.Content>TOOLBOX</Header.Content>
+                            <Header textAlign="center" size='huge' style={{marginTop:"30px"}}>
+                                <Header.Content style={{ color: "#FFFFFF"}}>TOOLBOX</Header.Content>
                             </Header>
                             <ToolBox></ToolBox>
                         </Segment>
-                        <Segment>
-                            
+                        <Segment style={Styles.SegmentBGColor}>
+                            <Header textAlign="center" size='huge' style={{ marginTop: "20px", marginBottom:"40px", color: "#FFFFFF" }}>
+                                <Header.Content>FRAMES</Header.Content>
+                            </Header>
                             {this.props.status === "logged in" ? <SaveButton/> : null}
                             {this.props.status === "logged in" ? <Projects/> : null}
                             <GridButton></GridButton>
+                            {this.props.status === "logged out" ? <Login /> : <Logout />}
                         </Segment>
                     </Grid.Column>
                     {/* CENTER COLUMN */}
                     <Grid.Column >
                         {/* NAME INPUT */}
-                        <Segment>
+                        <Segment style={Styles.SegmentBGColor}>
                             <Input
                                 value={this.props.projectName}
                                 onChange={(e) => this.props.changeProjectName(e.target.value)}
@@ -73,12 +79,12 @@ class App extends Component {
                             ></Input>
                         </Segment>
                         {/* CANVAS */}
-                        <Segment style={{ position: "relative" }}>
+                        <Segment style={{backgroundColor: "#515151"}}>
                             <Canvas></Canvas>
                         </Segment>
                         {/* FRAMES */}
-                        <Segment>
-                            <Header textAlign="left" size='large' style={{ marginTop: "10px", marginLeft: "25px" }}>
+                        <Segment style={Styles.SegmentBGColor}>
+                            <Header textAlign="left" size='large' style={{ marginTop: "10px", marginLeft: "25px", color: "#FFFFFF" }}>
                                 <Header.Content>FRAMES</Header.Content>
                             </Header>
                             <Frame></Frame>
@@ -87,23 +93,22 @@ class App extends Component {
                     {/* RIGHT COLUMN */}
                     <Grid.Column width={3}>
                         {/* GIF */}
-                        <Segment textAlign="center">
+                        <Segment textAlign="center" style={Styles.SegmentBGColor}>
                             <Header textAlign="center" size='large'>
-                                <Header.Content>GIF</Header.Content>
+                                <Header.Content style={{ color: "#FFFFFF"}}>GIF</Header.Content>
                             </Header>
                             <Gif></Gif>
                         </Segment>
                         {/* PREVIEW */}
-                        <Segment textAlign="center">
+                        <Segment textAlign="center" style={Styles.SegmentBGColor}>
                             <Header textAlign="center" size='large'>
-                                <Header.Content>PREVIEW</Header.Content>
+                                <Header.Content style={{ color: "#FFFFFF"}}>PREVIEW</Header.Content>
                             </Header>
                             {this.props.canvasRef ?
                                     <Preview 
                                         border
                                         canvasToRender={this.props.canvasRef.current} 
                                         history={this.props.history}
-                                        style={{margin:"0"}}
                                     ></Preview>
                                 
                             : null}

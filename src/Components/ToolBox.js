@@ -12,14 +12,21 @@ class ToolBox extends Component   {
     };
 
 //                    BLACK       RED       GREEN      BLUE      YELLOW      BROWN
-    colorPalette = ['#000000', '#850101', '#002F00', '#00002F', '#2F2F00', '#2D1502',
-                    '#454545', '#A40000', '#008C00', '#00008C', '#8C8C00', '#4B2303', 
-                    '#8B8B8B', '#FF0000', '#00E800', '#0000E8', '#E8E800', '#793705', 
-                    '#D0D0D0', '#FF7373', '#45FF45', '#4545FF', '#FFFF45', '#A54B06', 
-                    '#FFFFFF', '#FFE7E7', '#E7FFE7', '#E7E7FF', '#FFFFA2', '#CD9C77',]
+    colorPalette = ["#000000", "#FFFF00", "#1CE6FF", "#FF34FF", "#FF4A46", "#008941", "#006FA6", "#A30059",
+        "#FFDBE5", "#7A4900", "#0000A6", "#63FFAC", "#B79762", "#004D43", "#8FB0FF", "#997D87",
+        "#5A0007", "#809693", "#FEFFE6", "#1B4400", "#4FC601", "#3B5DFF", "#4A3B53", "#FF2F80",
+        "#61615A", "#BA0900", "#6B7900", "#00C2A0", "#FFAA92", "#FF90C9", "#B903AA", "#D16100",
+        "#DDEFFF", "#000035", "#7B4F4B", "#A1C299", "#300018", "#0AA6D8", "#013349", "#00846F",
+        "#372101", "#FFB500", "#C2FFED", "#A079BF", "#CC0744", "#C0B9B2", "#C2FF99", "#001E09",
+        "#00489C", "#6F0062", "#0CBD66", "#EEC3FF", "#456D75", "#B77B68", "#7A87A1", "#788D66",
+        "#885578", "#FAD09F", "#FF8A9A", "#D157A0",]
+
+        // ["#A04049", "#407059", "#D14030", "#57C848", "#000000", "#F7C848", "#695971", "#D05037",
+        //  "#"]
 
     render() {
         return  (
+            <React.Fragment>
             <Grid>
                 <Grid.Row width={7}>
                     <div style={Styles.colorPicker}>
@@ -34,22 +41,21 @@ class ToolBox extends Component   {
                     </div>
                     
                 </Grid.Row>
-                <Grid.Row width={7}>
+            </Grid>
                     <Button
                         fluid
                         onClick={this.props.selectBrush}
                         size="massive"
-                        style={Styles.toolsButton}
+                        style={{ marginTop: "75px", backgroundColor: "#515151", color: "#FFFFFF" }}
                     >BRUSH</Button>
                     <Button
                         fluid
                         onClick={this.props.selectEraser}
                         size="massive"
-                        style={Styles.toolsButton}
+                        style={{ marginTop: "25px", backgroundColor: "#515151", color: "#FFFFFF"}}
                     >ERASER</Button>
-                    
-                </Grid.Row>
-            </Grid>
+                </React.Fragment>
+
         )
     }
 }

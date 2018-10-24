@@ -22,6 +22,7 @@ const FrameCard= (props) => {
                 </Card.Header>
                 <Button 
                     onClick={() => props.deleteFrame(props.frame.id)}
+                    size="massive"
                     style={Styles.deleteButton}
                 >DELETE</Button>
             </Card>

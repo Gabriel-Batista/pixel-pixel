@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Card } from 'semantic-ui-react'
 
 class Preview extends Component   {
     constructor(props)  {
@@ -34,12 +35,14 @@ class Preview extends Component   {
 
     render()    {
         return (
-            <canvas
-                ref={this.previewRef}
-                height={(this.props.canvasHeight/3) + 2 + "px"}
-                width={(this.props.canvasWidth/3) + 2 + "px"}
-                style={{...this.props.style, ...this.border}}
-            ></canvas>
+            <Card raised style={{width:`${this.props.canvasWidth / 3 + 2}px`}} className="ui centered">
+                <canvas
+                    ref={this.previewRef}
+                    height={(this.props.canvasHeight/3) + 2 + "px"}
+                    width={(this.props.canvasWidth/3) + 2 + "px"}
+                    style={{...this.props.style}}
+                ></canvas>
+            </Card>
         )
     }
 }

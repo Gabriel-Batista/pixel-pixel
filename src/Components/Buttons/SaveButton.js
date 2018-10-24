@@ -21,7 +21,7 @@ const SaveButton = (props) =>   {
             fluid
             onClick={() => { saveFrame() }}
             size="massive"
-            style={{marginBottom:"25px"}}
+            style={{ marginBottom: "25px", backgroundColor: "#515151", color: "#FFFFFF"}}
         >SAVE</Button>
     )
 }

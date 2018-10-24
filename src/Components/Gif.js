@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-// import Animated_GIF from '../../node_modules/animated_gif/dist/Animated_GIF.min.js'
+import { Card } from 'semantic-ui-react'
 
 class Gif extends Component {
     constructor(props)  {
@@ -33,13 +33,13 @@ class Gif extends Component {
 
     render()    {
         return  (
-            <canvas
-                ref={this.gifRef}
-                height={(this.props.canvasHeight/3) + 2 + "px"}
-                width={(this.props.canvasWidth/3) + 2 + "px"}
-                style={{ border: "1px solid black" }}
-            ></canvas>
-
+            <Card raised style={{width: `${this.props.canvasWidth / 3 + 2}px`}}className="ui centered">
+                <canvas
+                    ref={this.gifRef}
+                    height={(this.props.canvasHeight/3) + 2 + "px"}
+                    width={(this.props.canvasWidth/3) + 2 + "px"}
+                ></canvas>
+            </Card>
         )
     }
 
