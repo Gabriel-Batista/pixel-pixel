@@ -8,8 +8,10 @@ import Gif from './Components/Gif'
 import Login from './Components/Login'
 import Logout from './Components/Logout'
 import Projects from './Components/Projects'
+import SaveButton from './Components/Buttons/SaveButton'
+import GridButton from './Components/Buttons/GridButton'
 
-import { Grid, Segment, Input } from 'semantic-ui-react'
+import { Grid, Segment, Input, Header, Icon } from 'semantic-ui-react'
 import roundTo from './Helpers/RoundingHelper'
 
 import { ProjectFetches } from './Helpers/ProjectAdapter'
@@ -37,20 +39,30 @@ class App extends Component {
         return (
             <Grid  style={{ marginTop: "auto" }} centered columns={3}>
                 <Grid.Row centered>
-
+                    {/* LEFT COLUMN */}
                     <Grid.Column width={3}>
+                        {/* LOGO */}
                         <Segment>
                             <div>LOGO</div>
                             {this.props.status === "logged out" ? <Login/> : <Logout/>}
-                            {this.props.status === "logged in" ? <Projects/> : null}
                         </Segment>
                         <Segment>
-                            <div>TOOLBOX</div>
+                            {/* TOOLBOX */}
+                            <Header textAlign="center" size='huge' style={{marginTop:"20px"}}>
+                                <Header.Content>TOOLBOX</Header.Content>
+                            </Header>
                             <ToolBox></ToolBox>
                         </Segment>
+                        <Segment>
+                            
+                            {this.props.status === "logged in" ? <SaveButton/> : null}
+                            {this.props.status === "logged in" ? <Projects/> : null}
+                            <GridButton></GridButton>
+                        </Segment>
                     </Grid.Column>
-
+                    {/* CENTER COLUMN */}
                     <Grid.Column >
+                        {/* NAME INPUT */}
                         <Segment>
                             <Input
                                 value={this.props.projectName}
@@ -60,29 +72,41 @@ class App extends Component {
                                 style={{width:"100%"}}
                             ></Input>
                         </Segment>
+                        {/* CANVAS */}
                         <Segment style={{ position: "relative" }}>
                             <Canvas></Canvas>
                         </Segment>
+                        {/* FRAMES */}
                         <Segment>
-                            <div>FRAMES</div>
+                            <Header textAlign="left" size='large' style={{ marginTop: "10px", marginLeft: "25px" }}>
+                                <Header.Content>FRAMES</Header.Content>
+                            </Header>
                             <Frame></Frame>
                         </Segment>
                     </Grid.Column>
-
+                    {/* RIGHT COLUMN */}
                     <Grid.Column width={3}>
-                        <Segment>
-                            <div>PREVIEW</div>
-                            {this.props.canvasRef ? 
-                                <Preview 
-                                    border
-                                    canvasToRender={this.props.canvasRef.current} 
-                                    history={this.props.history}
-                                ></Preview>
-                            : null}
+                        {/* GIF */}
+                        <Segment textAlign="center">
+                            <Header textAlign="center" size='large'>
+                                <Header.Content>GIF</Header.Content>
+                            </Header>
+                            <Gif></Gif>
                         </Segment>
-                        <Segment>
-                            <div>LAYERS</div>
-                                <Gif></Gif>
+                        {/* PREVIEW */}
+                        <Segment textAlign="center">
+                            <Header textAlign="center" size='large'>
+                                <Header.Content>PREVIEW</Header.Content>
+                            </Header>
+                            {this.props.canvasRef ?
+                                    <Preview 
+                                        border
+                                        canvasToRender={this.props.canvasRef.current} 
+                                        history={this.props.history}
+                                        style={{margin:"0"}}
+                                    ></Preview>
+                                
+                            : null}
                         </Segment>
                     </Grid.Column>
 

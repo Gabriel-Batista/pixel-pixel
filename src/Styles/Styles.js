@@ -1,14 +1,18 @@
 
 const Styles = {
     frameCard: {
-        margin:"25px",
+        marginTop:"10px",
+        marginBottom:"25px",
+        marginLeft:"25px",
+        marginRight:"25px",
 
     },
     deleteButton: {
         backgroundColor:"#C75146",
     },
     newFrameButton: {
-        margin:"25px",
+        marginTop:"10px",
+        marginBottom:"25px"
     },
     addIcon: {
         marginLeft:"25px"

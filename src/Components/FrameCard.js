@@ -1,6 +1,6 @@
 import React from 'react'
 import Styles from '../Styles/Styles'
-import { Card, Grid, Button } from 'semantic-ui-react'
+import { Card, Button } from 'semantic-ui-react'
 import { ProjectFetches } from '../Helpers/ProjectAdapter'
 import { connect } from 'react-redux'
 
@@ -12,13 +12,12 @@ const FrameCard= (props) => {
 
     return (
             <Card 
-                raised 
+                raised
                 style={{ ...Styles.frameCard, width: `${props.canvasWidth / 3 + 2}px`}}
             >
-                <Card.Header>
+                <Card.Header onClick={(e) => props.bringCanvasToFront(props.frame.id)}>
                     <Preview 
                         canvasToRender={props.tmpImg}
-                        onClick={(e) => props.bringCanvasToFront(props.frame.id)}
                     ></Preview>
                 </Card.Header>
                 <Button 

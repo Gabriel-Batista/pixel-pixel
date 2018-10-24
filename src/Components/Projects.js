@@ -65,7 +65,7 @@ class Projects extends Component    {
         
         return(
             <div>
-            { this.props.status === 'logged in' ? <Button onClick={this.show('blurring')}>Open</Button> : null }
+            { this.props.status === 'logged in' ? <Button fluid size="massive" style={{marginBottom:"25px"}} onClick={this.show('blurring')}>OPEN</Button> : null }
             <Modal dimmer={dimmer} open={open} onClose={this.close}>
                 <Modal.Header>Log in</Modal.Header>
                 <Modal.Content>
