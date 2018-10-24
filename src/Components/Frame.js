@@ -16,7 +16,9 @@ class Frame extends Component   {
         // this.props.updateFrame({ id: this.props.selectedFrame, base64: this.props.canvasRef.current.toDataURL()})
         this.props.context.clearRect(0, 0, this.props.canvasWidth, this.props.canvasHeight)
         this.props.selectFrame(id)
-        ProjectFetches.fetchCreateFrame({project_id: this.props.projectId, frame_id: id, base64: ""})
+        if (this.props.projectId !== null) {
+            ProjectFetches.fetchCreateFrame({project_id: this.props.projectId, frame_id: id, base64: ""})
+        }
     }
 
     deleteFrame = (id) => {
