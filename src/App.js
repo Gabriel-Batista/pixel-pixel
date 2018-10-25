@@ -36,6 +36,15 @@ class App extends Component {
             .then(res => this.props.pullProjects(res)))
             
         }
+        this.state={
+            titleEdit: false
+        }
+    }
+
+    toggleTitleEdit = () => {
+        this.setState({
+            titleEdit: !this.state.titleEdit
+        })
     }
 
     render() {
@@ -62,13 +71,37 @@ class App extends Component {
                     <Grid.Column >
                         {/* NAME INPUT */}
                         <Segment style={Styles.SegmentBGColor}>
-                            <Input
-                                value={this.props.projectName}
-                                onChange={(e) => this.props.changeProjectName(e.target.value)}
-                                size="massive"
-                                label="Title:"
-                                style={{width:"100%"}}
-                            ></Input>
+                            {
+                                this.state.titleEdit ? 
+                                    <Input
+                                        autoFocus
+                                        value={this.props.projectName}
+                                        onChange={(e) => this.props.changeProjectName(e.target.value)}
+                                        onBlur={() => {
+                                            this.toggleTitleEdit()
+                                            if (this.props.projectId !== null) {
+                                                ProjectFetches.fetchUpdateProject({
+                                                    projectId: this.props.projectId,
+                                                    frameId: this.props.selectedCanvas,
+                                                    token: localStorage.getItem('token'),
+                                                    name: this.props.projectName,
+                                                    frame: this.props.canvasRef.current.toDataURL()
+                                                })
+                                            }
+                                            }}
+                                        size="massive"
+                                        label="Title:"
+                                        style={{width:"100%"}}
+                                    ></Input> 
+                                    :
+                                    <Header 
+                                        as="h1" 
+                                        size="huge" 
+                                        textAlign="center"
+                                        onClick={this.toggleTitleEdit}
+                                        style={{color:"#FFFFFF", margin:"15px 0px"}}
+                                    >{this.props.projectName}</Header>
+                            }
                         </Segment>
                         {/* CANVAS */}
                         <Segment style={{backgroundColor: "#515151"}}>
