@@ -133,7 +133,7 @@ class Canvas extends Component   {
                 ref={this.canvasRef} 
                 height={this.props.canvasHeight + "px"} 
                 width={this.props.canvasWidth + "px"}
-                style={{ position: "absolute", zIndex:"0" }}
+                style={{ position: "absolute", zIndex:"1" }}
                 ></canvas>
                 <canvas
                     ref={this.ghostRef}
