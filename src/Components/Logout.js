@@ -6,6 +6,7 @@ const Logout= (props) => {
     const logout= () => {
         localStorage.removeItem('token')
         props.userLoggedOut()
+        props.context.clearRect(0, 0, props.canvasHeight, props.canvasWidth)
     }
 
     return (
@@ -18,6 +19,14 @@ const Logout= (props) => {
     )
 }
 
+const mapStateToProps= (state) =>   {
+    return {
+        context: state.canvas.context,
+        canvasHeight: state.canvas.height,
+        canvasWidth: state.canvas.width
+    }
+}
+
 const mapDispatchToProps= (dispatch) => {
     return {
         userLoggedOut: () =>    {
@@ -28,4 +37,4 @@ const mapDispatchToProps= (dispatch) => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(Logout)
+export default connect(mapStateToProps, mapDispatchToProps)(Logout)
