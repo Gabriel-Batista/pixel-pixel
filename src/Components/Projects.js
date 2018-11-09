@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { Button, Modal, Grid } from 'semantic-ui-react'
+import { Button, Modal, Card } from 'semantic-ui-react'
 import ProjectCard from './ProjectCard'
 
 import { ProjectFetches } from '../Helpers/ProjectAdapter'
@@ -43,11 +43,13 @@ class Projects extends Component    {
     }
 
     renderProjects = () =>  {
+      console.log(this.props.projects)
         return this.props.projects.map((project, index) => {
             return <ProjectCard 
                         key={index}
                         name={project.name}
-                handleClick={() => this.loadProject(project)}
+                        handleClick={() => this.loadProject(project)}
+                        base64={project.frames[0].base64}
                     ></ProjectCard>
         })
     }
@@ -70,11 +72,11 @@ class Projects extends Component    {
                 <Modal.Header>Log in</Modal.Header>
                 <Modal.Content>
                     <Modal.Description >
-                        <Grid textAlign='center'>
-                            <ul>
+                        <div textAlign='center'>
+                            <Card.Group centered doubling stackable itemsPerRow={3}>
                             {this.renderProjects()}
-                            </ul>
-                        </Grid>
+                            </Card.Group>
+                        </div>
                     </Modal.Description>
                 </Modal.Content>
                 <Modal.Actions>
