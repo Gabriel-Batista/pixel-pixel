@@ -31,9 +31,6 @@ class ToolBox extends Component   {
                 <Grid.Row width={7}>
                     <div style={Styles.colorPicker}>
                         <CirclePicker
-                            circleSize={90}
-                            width="100%"
-                            height="25em"
                             color={this.props.color}
                             colors={this.colorPalette}
                             onChangeComplete={this.handleChangeComplete}
@@ -46,13 +43,13 @@ class ToolBox extends Component   {
                         fluid
                         onClick={this.props.selectBrush}
                         size="massive"
-                        style={{ marginTop: "75px", backgroundColor: "#515151", color: "#FFFFFF" }}
+                        style={{ marginTop: "1.75em", backgroundColor: "#515151", color: "#FFFFFF" }}
                     >BRUSH</Button>
                     <Button
                         fluid
                         onClick={this.props.selectEraser}
                         size="massive"
-                        style={{ marginTop: "25px", backgroundColor: "#515151", color: "#FFFFFF"}}
+                        style={{ marginTop: "1em", backgroundColor: "#515151", color: "#FFFFFF"}}
                     >ERASER</Button>
                 </React.Fragment>
 
