@@ -1,50 +1,53 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import UUID from 'uuid/v4'
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import UUID from "uuid/v4";
 
-import { Card } from 'semantic-ui-react'
+import { Card } from "semantic-ui-react";
 
-import { ProjectFetches } from '../Helpers/ProjectAdapter'
+import { ProjectFetches } from "../Helpers/ProjectAdapter";
 
-import { getMousePosition } from '../Helpers/MouseTracker'
+import { getMousePosition } from "../Helpers/MouseTracker";
 
+class Canvas extends Component {
+    constructor(props) {
+        super(props);
+        this.gridRef = React.createRef();
+        this.canvasRef = React.createRef();
+        this.ghostRef = React.createRef();
+        this.props.setCanvasRef(this.canvasRef);
+        this.props.setGridRef(this.gridRef);
 
-class Canvas extends Component   {
-    constructor(props)  {
-        super(props)
-        this.gridRef = React.createRef()
-        this.canvasRef = React.createRef()
-        this.ghostRef = React.createRef()
-        this.props.setCanvasRef(this.canvasRef)
-        this.props.setGridRef(this.gridRef)
-
-        this.cursor = "pencil"
+        this.cursor = "pencil";
     }
 
-    componentDidMount= () =>    {
-        this.props.setContext(this.canvasRef.current.getContext('2d'))
-        this.props.setGridContext(this.gridRef.current.getContext('2d'))
-        this.props.setGhostContext(this.ghostRef.current.getContext('2d'))
-        
-        if (Object.keys(this.props.frames).length === 0 )    {
-            let id = UUID()
-            this.props.pushFrame({ id: id, base64: "" })
-            this.props.selectFrame(id)
+    componentDidMount = () => {
+        this.props.setContext(this.canvasRef.current.getContext("2d"));
+        this.props.setGridContext(this.gridRef.current.getContext("2d"));
+        this.props.setGhostContext(this.ghostRef.current.getContext("2d"));
+
+        if (Object.keys(this.props.frames).length === 0) {
+            let id = UUID();
+            this.props.pushFrame({ id: id, base64: "" });
+            this.props.selectFrame(id);
+        } else {
+            this.props.selectFrame(
+                this.props.frames[Object.keys(this.props.frames)[0].id]
+            );
         }
-        else    {
-            this.props.selectFrame(this.props.frames[Object.keys(this.props.frames)[0].id])
-        }
-    }
+    };
 
+    drawGrid = () => {
+        const width = this.gridRef.current.width;
+        const height = this.gridRef.current.height;
 
+        this.props.gridContext.clearRect(
+            0,
+            0,
+            this.props.canvasWidth,
+            this.props.canvasHeight
+        );
 
-    drawGrid= () =>  {
-        const width = this.gridRef.current.width
-        const height = this.gridRef.current.height
-
-        this.props.gridContext.clearRect(0, 0, this.props.canvasWidth, this.props.canvasHeight)
-
-        this.props.gridContext.beginPath()
+        this.props.gridContext.beginPath();
         for (let x = 0; x <= width; x += this.props.pixelSize) {
             this.props.gridContext.moveTo(x, 0);
             this.props.gridContext.lineTo(x, height);
@@ -55,168 +58,231 @@ class Canvas extends Component   {
             this.props.gridContext.lineTo(width, y);
         }
 
-        this.props.gridContext.lineWidth = .5
+        this.props.gridContext.lineWidth = 0.5;
         this.props.gridContext.stroke();
-    }
+    };
 
-    updateProject= () => {
-        this.props.updateFrame({ id: this.props.selectedCanvas, base64: this.props.canvasRef.current.toDataURL() })
-        if (this.props.projectId !== null)  {
+    updateProject = () => {
+        this.props.updateFrame({
+            id: this.props.selectedCanvas,
+            base64: this.props.canvasRef.current.toDataURL()
+        });
+        if (this.props.projectId !== null) {
             ProjectFetches.fetchUpdateProject({
-            projectId: this.props.projectId,
-            frameId: this.props.selectedCanvas,
-            token: localStorage.getItem('token'),
-            name: this.props.projectName,
-            frame: this.props.canvasRef.current.toDataURL()
-        })
+                projectId: this.props.projectId,
+                frameId: this.props.selectedCanvas,
+                token: localStorage.getItem("token"),
+                name: this.props.projectName,
+                frame: this.props.canvasRef.current.toDataURL()
+            });
         }
-        
+    };
+
+    componentDidUpdate() {
+        let height = this.props.gridContext.canvas.parentNode.clientHeight.roundTo(
+            this.props.pixelSize
+        );
+        let width = this.props.gridContext.canvas.parentNode.clientWidth.roundTo(
+            this.props.pixelSize
+        );
+        if (this.props.gridContext.canvas.height !== height) {
+            this.props.gridContext.canvas.height = height;
+            this.props.gridContext.canvas.width = width;
+            this.props.context.canvas.height = height;
+            this.props.context.canvas.width = width;
+            this.props.ghostContext.canvas.height = height;
+            this.props.ghostContext.canvas.width = width;
+            if (this.props.grid === true) {
+                this.drawGrid();
+            }
+        }
     }
 
     //===============================TOOLS================================
 
-    draw= (position, original) => {
+    draw = (position, original) => {
         // Makes sure that user isn't drawing over the same square repeatedly
-        if (this.props.history.length === 0 || position.x !== this.props.history[this.props.history.length - 1].x || position.y !== this.props.history[this.props.history.length - 1].y){
-            this.props.pushHistory({ action: "draw", x: position.x, y: position.y, originalX: original.x, originalY: original.y })
-            this.props.context.fillStyle = 'rgb(' + this.props.color.r + ',' + this.props.color.g + ',' + this.props.color.b + ',' + this.props.color.a + ')'
-            this.props.context.fillRect(position.x, position.y, this.props.pixelSize, this.props.pixelSize)
-            
+        if (
+            this.props.history.length === 0 ||
+            position.x !==
+                this.props.history[this.props.history.length - 1].x ||
+            position.y !== this.props.history[this.props.history.length - 1].y
+        ) {
+            this.props.pushHistory({
+                action: "draw",
+                x: position.x,
+                y: position.y,
+                originalX: original.x,
+                originalY: original.y
+            });
+            this.props.context.fillStyle =
+                "rgb(" +
+                this.props.color.r +
+                "," +
+                this.props.color.g +
+                "," +
+                this.props.color.b +
+                "," +
+                this.props.color.a +
+                ")";
+            this.props.context.fillRect(
+                position.x,
+                position.y,
+                this.props.pixelSize,
+                this.props.pixelSize
+            );
         }
-    }
+    };
 
-    erase= (position) => {
-        this.props.pushHistory({ action: "draw", x: position.x, y: position.y })
-        this.props.context.clearRect(position.x, position.y, this.props.pixelSize, this.props.pixelSize)
-    }
+    erase = position => {
+        this.props.pushHistory({
+            action: "draw",
+            x: position.x,
+            y: position.y
+        });
+        this.props.context.clearRect(
+            position.x,
+            position.y,
+            this.props.pixelSize,
+            this.props.pixelSize
+        );
+    };
 
-    getTool= () => {
-        switch(this.props.currentTool)  {
-            case 'brush':
-                return this.draw
-            case 'eraser':
-                return this.erase
+    getTool = () => {
+        switch (this.props.currentTool) {
+            case "brush":
+                return this.draw;
+            case "eraser":
+                return this.erase;
             default:
-                return this.draw
+                return this.draw;
         }
-    }
+    };
     //============================ENDTOOLS================================
 
-
-    render()    {
-        if (this.props.context !== null)    {
-            this.props.gridContext.clearRect(0, 0, this.props.canvasWidth, this.props.canvasHeight)
+    render() {
+        if (this.props.context !== null) {
+            this.props.gridContext.clearRect(
+                0,
+                0,
+                this.props.canvasWidth,
+                this.props.canvasHeight
+            );
             if (this.props.grid === true) {
-                this.drawGrid()
+                this.drawGrid();
             }
         }
-        
-        return  (
-            <Card 
-                style={{ position: "relative", width:"98.6%"}}
-                className="ui centered"
-            >
+        //{this.props.canvasWidth + "px"}
+        if (this.props.gridContext !== null) {
+            console.log(
+                "sdfsfsd",
+                this.props.gridContext.canvas.parentNode.clientHeight
+            );
+        }
+        return (
+            <React.Fragment>
                 <canvas
                     ref={this.gridRef}
-                    height={this.props.canvasHeight + "px"}
-                    width={this.props.canvasWidth + "px"}
-                    style={{ position: "absolute", zIndex: "9999", cursor: this.props.cursor}}
-                    onMouseDown={(e) => this.getTool()(getMousePosition(e), { x: e.clientX, y: e.clientY })}
-                    onMouseMove={(e) => {
+                    onResize={() => console.log('butt')}
+                    style={{
+                        position: "absolute",
+                        zIndex: "9999",
+                        cursor: this.props.cursor
+                    }}
+                    onMouseDown={e =>
+                        this.getTool()(getMousePosition(e), {
+                            x: e.clientX,
+                            y: e.clientY
+                        })
+                    }
+                    onMouseMove={e => {
                         if (e.buttons === 1) {
-                            this.getTool()(getMousePosition(e), { x: e.clientX, y: e.clientY })
+                            this.getTool()(getMousePosition(e), {
+                                x: e.clientX,
+                                y: e.clientY
+                            });
                         }
                     }}
                     onMouseUp={() => this.updateProject()}
-                ></canvas>
-                <canvas 
-                ref={this.canvasRef} 
-                height={this.props.canvasHeight + "px"} 
-                width={this.props.canvasWidth + "px"}
-                style={{ position: "absolute", zIndex:"1" }}
-                ></canvas>
+                    onMouseLeave={() => this.updateProject()}
+                />
+                <canvas
+                    ref={this.canvasRef}
+                    style={{ position: "absolute", zIndex: "1" }}
+                />
                 <canvas
                     ref={this.ghostRef}
-                    height={this.props.canvasHeight + "px"}
-                    width={this.props.canvasWidth + "px"}
                     style={{ position: "absolute", zIndex: "0" }}
-                ></canvas>
-                <canvas
-                    display="hidden"
-                    height={this.props.canvasHeight + "px"}
-                    width={this.props.canvasWidth + "px"}
-                    style={{ zIndex: "-10" }}
-                ></canvas>
-            </Card>
-        )
+                />
+            </React.Fragment>
+        );
     }
 }
 
-
-
-const mapDispatchToProps= (dispatch) =>   {
+const mapDispatchToProps = dispatch => {
     return {
-        setContext: (payload) => {
+        setContext: payload => {
             dispatch({
-                type: 'SET_CONTEXT',
+                type: "SET_CONTEXT",
                 payload: payload
-            })
+            });
         },
-        setGridContext: (payload) => {
+        setGridContext: payload => {
             dispatch({
-                type: 'SET_GRID_CONTEXT',
+                type: "SET_GRID_CONTEXT",
                 payload: payload
-            })
+            });
         },
-        pushHistory: (payload) => {
+        pushHistory: payload => {
             dispatch({
-                type: 'PUSH_HISTORY',
+                type: "PUSH_HISTORY",
                 payload: payload
-            })
+            });
         },
-        setCanvasRef: (payload) => {
+        setCanvasRef: payload => {
             dispatch({
-                type: 'SET_CANVAS_REF',
+                type: "SET_CANVAS_REF",
                 payload: payload
-            })
+            });
         },
-        setGhostContext: (payload) => {
+        setGhostContext: payload => {
             dispatch({
-                type: 'SET_GHOST_CONTEXT',
+                type: "SET_GHOST_CONTEXT",
                 payload: payload
-            })
+            });
         },
-        setGridRef: (payload) => {
+        setGridRef: payload => {
             dispatch({
-                type: 'SET_GRID_REF',
+                type: "SET_GRID_REF",
                 payload: payload
-            })
+            });
         },
-        updateFrame: (payload) =>   {
+        updateFrame: payload => {
             dispatch({
-                type: 'UPDATE_FRAME',
+                type: "UPDATE_FRAME",
                 payload: payload
-            })
+            });
         },
-        pushFrame: (payload) => {
+        pushFrame: payload => {
             dispatch({
-                type: 'PUSH_FRAME',
+                type: "PUSH_FRAME",
                 payload: payload
-            })
+            });
         },
-        selectFrame: (payload) => {
+        selectFrame: payload => {
             dispatch({
-                type: 'SET_FRAME_ID',
+                type: "SET_FRAME_ID",
                 payload: payload
-            })
-        },
-    }
-}
+            });
+        }
+    };
+};
 
-const mapStateToProps= (state) => {
+const mapStateToProps = state => {
     return {
         context: state.canvas.context,
         gridContext: state.canvas.gridContext,
+        ghostContext: state.canvas.ghostContext,
         pixelSize: state.canvas.pixelSize,
         grid: state.canvas.grid,
         currentTool: state.tools.currentTool,
@@ -230,7 +296,10 @@ const mapStateToProps= (state) => {
         projectId: state.projects.projectId,
         projectName: state.projects.projectName,
         cursor: state.tools.cursor
-    }
-}
+    };
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Canvas)
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Canvas);
