@@ -27,15 +27,16 @@ const Styles = {
         margin:"25px"
     },
     colorPicker: {
-        height:"auto",
-        width: "auto",
-        margin: "0 auto"
+      margin:"0 auto"
     },
     SegmentBGColor: {
         backgroundColor:"#333333"
     },
     ToolBoxSegmentStyles: {
-      height: "100%"
+      display: "inline-block",
+      padding: "5%",
+      width:"100%",
+      height: "auto"
     }
 
 }
