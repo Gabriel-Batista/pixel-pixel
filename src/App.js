@@ -53,7 +53,7 @@ class App extends Component {
     render() {
         return (
             <Grid
-                style={{ marginTop: "auto", backgroundColor: "#1F1F1F"}}
+                style={{ marginTop: "auto",}}
                 centered
                 columns={16}
             >
