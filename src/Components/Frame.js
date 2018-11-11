@@ -16,14 +16,12 @@ class Frame extends Component   {
     newFrame = () => {
         const id = UUID()
         this.props.newFrame(id)
-        
         // this.props.updateFrame({ id: this.props.frameId, base64: this.props.canvasRef.current.toDataURL()})
         this.props.context.clearRect(0, 0, this.props.canvasWidth, this.props.canvasHeight)
         this.props.selectFrame(id)
         if (this.props.projectId !== null) {
             ProjectFetches.fetchCreateFrame({project_id: this.props.projectId, frame_id: id, base64: ""})
         }
-        
     }
 
     deleteFrame = (id) => {
@@ -35,12 +33,9 @@ class Frame extends Component   {
     drawGhost = () =>   {
         this.props.ghostContext.clearRect(0, 0, this.props.canvasWidth, this.props.canvasHeight)
         let frameIndex = Object.keys(this.props.frames).indexOf(this.props.frameId)
-        console.log("values", (Object.values(this.props.frames)))
-        console.log("frameIndex", frameIndex)
         if (Object.keys(this.props.frames).length > 0 && frameIndex > 0) {
             let ghostImg = new Image()
             ghostImg.src = Object.values(this.props.frames)[frameIndex - 1].base64
-            console.log("FI:", frameIndex)
             ghostImg.onload = () => {
                 this.props.ghostContext.globalAlpha = 0.4
                 this.props.ghostContext.drawImage(ghostImg, 0, 0)
