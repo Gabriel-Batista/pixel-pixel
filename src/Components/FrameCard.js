@@ -13,10 +13,10 @@ const FrameCard= (props) => {
     return (
             <Card 
                 raised
-                style={{ ...Styles.frameCard, width: `${props.canvasWidth / 3 + 2}px`}}
+                style={{ ...Styles.frameCard}}
             >
                 <Card.Header onClick={(e) => props.bringCanvasToFront(props.frame.id)}>
-                    <Preview 
+                    <Preview style={{height: "100%", width: "100%"}}
                         canvasToRender={props.tmpImg}
                     ></Preview>
                 </Card.Header>

@@ -80,7 +80,7 @@ class Frame extends Component   {
 
     render()    {
         return  (
-            <div style={{ overflowX: "scroll", display: "flex", flexDirection: "row" }}>
+            <div style={Styles.FramesContainer}>
                 {this.renderFrames()}
                 <Button 
                     icon

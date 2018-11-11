@@ -32,8 +32,13 @@ const CanvasReducer= (state = defaultState, action) => {
             return {...state, previewContext: action.payload}
 
         case 'SET_FRAME_ID':
-            // console.log(action.payload)
             return {...state, frameId: action.payload}
+
+        case 'SET_HEIGHT':
+          return { ...state, height: action.payload}
+
+        case 'SET_WIDTH':
+          return { ...state, width: action.payload}
         default:
             return state
     }

@@ -53,13 +53,13 @@ class App extends Component {
     render() {
         return (
             <Grid
-                style={{ marginTop: "auto", backgroundColor: "#1F1F1F" }}
+                style={{ marginTop: "auto", backgroundColor: "#1F1F1F"}}
                 centered
-                columns={3}
+                columns={16}
             >
-                <Grid.Row centered>
+            <Grid.Row centered compact columns={16}>
                     {/* LEFT COLUMN */}
-                    <Grid.Column width={3}>
+              <Grid.Column width={3} style={{ backgroundColor: "#1F1F1F"}}>
                         {/* LOGO */}
                         <Segment style={Styles.SegmentBGColor}>
                             <Header
@@ -85,7 +85,7 @@ class App extends Component {
                         </Segment>
                     </Grid.Column>
                     {/* CENTER COLUMN */}
-                    <Grid.Column>
+                    <Grid.Column columns={10} width={6}>
                         {/* NAME INPUT */}
                         <Segment style={Styles.SegmentBGColor}>
                             {this.state.titleEdit ? (
@@ -132,11 +132,11 @@ class App extends Component {
                             )}
                         </Segment>
                         {/* CANVAS */}
-                        <Segment style={{ backgroundColor: "#515151" }}>
-                            <Canvas />
+                        <Segment style={{ backgroundColor: "#515151" }} textAlign="center">
+                            <Canvas/>
                         </Segment>
                         {/* FRAMES */}
-                        <Segment style={Styles.SegmentBGColor}>
+                        <p style={Styles.SegmentBGColor}>
                             <Header
                                 textAlign="left"
                                 size="large"
@@ -149,7 +149,7 @@ class App extends Component {
                                 <Header.Content>FRAMES</Header.Content>
                             </Header>
                             <Frame />
-                        </Segment>
+                        </p>
                     </Grid.Column>
                     {/* RIGHT COLUMN */}
                     <Grid.Column width={3}>

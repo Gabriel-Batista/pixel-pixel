@@ -14,6 +14,7 @@ class Canvas extends Component {
         this.gridRef = React.createRef();
         this.canvasRef = React.createRef();
         this.ghostRef = React.createRef();
+        this.sizerRef = React.createRef();
         this.props.setCanvasRef(this.canvasRef);
         this.props.setGridRef(this.gridRef);
 
@@ -81,20 +82,28 @@ class Canvas extends Component {
     componentDidUpdate() {
         let height = this.props.gridContext.canvas.parentNode.clientHeight.roundTo(
             this.props.pixelSize
-        );
-        let width = this.props.gridContext.canvas.parentNode.clientWidth.roundTo(
-            this.props.pixelSize
-        );
-        if (this.props.gridContext.canvas.height !== height) {
+        ); //600
+        let width = height;
+        if (
+            this.props.gridContext.canvas.height !== height &&
+            this.props.gridContext.canvas.height !== 504 &&
+            this.props.gridContext.canvas.width !== 504
+        ) {
+            if (height < 504) height = 504;
+            if (width < 504) width = 504;
             this.props.gridContext.canvas.height = height;
             this.props.gridContext.canvas.width = width;
             this.props.context.canvas.height = height;
             this.props.context.canvas.width = width;
             this.props.ghostContext.canvas.height = height;
             this.props.ghostContext.canvas.width = width;
+            this.sizerRef.current.getContext("2d").canvas.height = height;
+            this.sizerRef.current.getContext("2d").canvas.width = width;
             if (this.props.grid === true) {
                 this.drawGrid();
             }
+            this.props.setHeight(height)
+            this.props.setWidth(width)
         }
     }
 
@@ -180,14 +189,17 @@ class Canvas extends Component {
             );
         }
         return (
-            <React.Fragment>
+            <div>
                 <canvas
                     ref={this.gridRef}
-                    onResize={() => console.log('butt')}
+                    onResize={() => console.log("butt")}
                     style={{
                         position: "absolute",
                         zIndex: "9999",
-                        cursor: this.props.cursor
+                        cursor: this.props.cursor,
+                        right: "0",
+                        left: "0",
+                        margin: "0 auto"
                     }}
                     onMouseDown={e =>
                         this.getTool()(getMousePosition(e), {
@@ -208,13 +220,35 @@ class Canvas extends Component {
                 />
                 <canvas
                     ref={this.canvasRef}
-                    style={{ position: "absolute", zIndex: "1" }}
+                    style={{
+                        position: "absolute",
+                        zIndex: "1",
+                        right: "0",
+                        left: "0",
+                        margin: "0 auto"
+                    }}
                 />
                 <canvas
                     ref={this.ghostRef}
-                    style={{ position: "absolute", zIndex: "0" }}
+                    style={{
+                        position: "absolute",
+                        zIndex: "0",
+                        right: "0",
+                        left: "0",
+                        margin: "0 auto"
+                    }}
                 />
-            </React.Fragment>
+                <canvas
+                    ref={this.sizerRef}
+                    style={{
+                        display: "hidden",
+                        zIndex: "-99999",
+                        right: "0",
+                        left: "0",
+                        margin: "0 auto"
+                    }}
+                />
+            </div>
         );
     }
 }
@@ -272,6 +306,18 @@ const mapDispatchToProps = dispatch => {
         selectFrame: payload => {
             dispatch({
                 type: "SET_FRAME_ID",
+                payload: payload
+            });
+        },
+        setHeight: payload => {
+            dispatch({
+                type: "SET_HEIGHT",
+                payload: payload
+            });
+        },
+        setWidth: payload => {
+            dispatch({
+                type: "SET_WIDTH",
                 payload: payload
             });
         }
