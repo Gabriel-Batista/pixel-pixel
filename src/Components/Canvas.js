@@ -19,6 +19,9 @@ class Canvas extends Component {
         this.props.setGridRef(this.gridRef);
 
         this.cursor = "pencil";
+        this.state={
+          bgSet: false
+        }
     }
 
     componentDidMount = () => {
@@ -104,7 +107,19 @@ class Canvas extends Component {
             }
             this.props.setHeight(height)
             this.props.setWidth(width)
+            if(this.state.bgSet !== true) {
+              this.setBackgroundColor("#FFFFFF");
+            }
         }
+    }
+
+    setBackgroundColor = (color) =>  {
+      this.sizerRef.current.getContext("2d").fillStyle = color;
+      this.sizerRef.current.getContext("2d").fillRect(0, 0, this.props.canvasHeight, this.props.canvasWidth);
+      // this.canvasRef.current.getContext("2d").fillStyle = "#000000";
+      this.setState({
+        bgSet: true
+      })
     }
 
     //===============================TOOLS================================
@@ -192,7 +207,6 @@ class Canvas extends Component {
             <div>
                 <canvas
                     ref={this.gridRef}
-                    onResize={() => console.log("butt")}
                     style={{
                         position: "absolute",
                         zIndex: "9999",
@@ -241,7 +255,6 @@ class Canvas extends Component {
                 <canvas
                     ref={this.sizerRef}
                     style={{
-                        display: "hidden",
                         zIndex: "-99999",
                         right: "0",
                         left: "0",
