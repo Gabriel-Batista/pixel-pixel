@@ -13,7 +13,7 @@ import GridButton from "./Components/Buttons/GridButton";
 import NewButton from "./Components/Buttons/NewButton";
 
 import { Grid, Segment, Input, Header, Icon } from "semantic-ui-react";
-import roundTo from "./Helpers/RoundingHelper";
+import roundTo from "./Helpers/RoundingHelper.js";
 
 import { ProjectFetches } from "./Helpers/ProjectAdapter";
 import { UserFetches } from "./Helpers/UserAdapter";
