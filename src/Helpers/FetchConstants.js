@@ -1,6 +1,6 @@
 
 export const fetchConsts = {
-  API: "https://pixel-pixel-backend.herokuapp.com/",
+  API: "https://pixel-pixel-backend.herokuapp.com/heroku",
     
     HEADERS: {
         "Content-type": "application/json",

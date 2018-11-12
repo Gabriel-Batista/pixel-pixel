@@ -1,5 +1,5 @@
 import React from 'react'
-import Styles from '../Styles/Styles'
+import FrameCardStyles from '../Styles/FrameCardStyles'
 import { Card, Button } from 'semantic-ui-react'
 import { ProjectFetches } from '../Helpers/ProjectAdapter'
 import { connect } from 'react-redux'
@@ -13,7 +13,7 @@ const FrameCard= (props) => {
     return (
             <Card 
                 raised
-                style={{ ...Styles.frameCard}}
+                style={FrameCardStyles.frameCard}
             >
                 <Card.Header onClick={(e) => props.bringCanvasToFront(props.frame.id)}>
                     <Preview style={{height: "100%", width: "100%"}}
@@ -23,7 +23,7 @@ const FrameCard= (props) => {
                 <Button 
                     onClick={() => props.deleteFrame(props.frame.id)}
                     size="massive"
-                    style={Styles.deleteButton}
+                    style={FrameCardStyles.deleteButton}
                 >DELETE</Button>
             </Card>
     )

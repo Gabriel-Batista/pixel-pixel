@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { SketchPicker, CirclePicker } from 'react-color'
 import { ProjectFetches } from '../Helpers/ProjectAdapter'
 import { Button, Grid } from 'semantic-ui-react'
-import Styles from '../Styles/Styles'
+import ToolBoxStyles from '../Styles/ToolBoxStyles'
 
 class ToolBox extends Component   {
     handleChangeComplete = (color) => {
@@ -29,7 +29,7 @@ class ToolBox extends Component   {
             <React.Fragment>
             <Grid>
                 <Grid.Row width={7}>
-                    <div style={Styles.colorPicker}>
+                    <div style={ToolBoxStyles.colorPicker}>
                         <CirclePicker
                             color={this.props.color}
                             colors={this.colorPalette}

@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Button, Icon } from 'semantic-ui-react';
 import UUID from 'uuid/v4'
 import { ProjectFetches } from '../Helpers/ProjectAdapter'
-import Styles from '../Styles/Styles'
+import FrameStyles from '../Styles/FrameStyles'
 
 import FrameCard from './FrameCard'
 
@@ -75,12 +75,12 @@ class Frame extends Component   {
 
     render()    {
         return  (
-            <div style={Styles.FramesContainer}>
+            <div style={FrameStyles.FramesContainer}>
                 {this.renderFrames()}
                 <Button 
                     icon
                     onClick={this.newFrame}
-                    style={Styles.newFrameButton}
+                    style={FrameStyles.newFrameButton}
                 >
                     <Icon 
                         name="add" 
