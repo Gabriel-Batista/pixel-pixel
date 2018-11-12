@@ -18,7 +18,7 @@ import roundTo from "./Helpers/RoundingHelper.js";
 import { ProjectFetches } from "./Helpers/ProjectAdapter";
 import { UserFetches } from "./Helpers/UserAdapter";
 
-import Styles from "./Styles/Styles";
+import AppStyles from "./Styles/AppStyles";
 
 import { connect } from "react-redux";
 
@@ -61,7 +61,7 @@ class App extends Component {
                     {/* LEFT COLUMN */}
               <Grid.Column width={3} style={{ backgroundColor: "#1F1F1F"}}>
                         {/* LOGO */}
-                        <Segment style={Styles.SegmentBGColor}>
+                        <Segment style={AppStyles.SegmentBGColor}>
                             <Header
                                 as="h1"
                                 textAlign="center"
@@ -70,7 +70,7 @@ class App extends Component {
                                 <Header.Content>--PIXEL-PIXEL--</Header.Content>
                             </Header>
                         </Segment>
-                        <Segment style={{...Styles.SegmentBGColor, ...Styles.ToolBoxSegmentStyles }}>
+                        <Segment style={{...AppStyles.SegmentBGColor, ...AppStyles.ToolBoxSegmentStyles }}>
                             {/* TOOLBOX */}
                             <Header
                                 textAlign="center"
@@ -87,7 +87,7 @@ class App extends Component {
                     {/* CENTER COLUMN */}
                     <Grid.Column columns={10} width={6}>
                         {/* NAME INPUT */}
-                        <Segment style={Styles.SegmentBGColor}>
+                        <Segment style={AppStyles.SegmentBGColor}>
                             {this.state.titleEdit ? (
                                 <Input
                                     autoFocus
@@ -136,7 +136,7 @@ class App extends Component {
                             <Canvas/>
                         </Segment>
                         {/* FRAMES */}
-                        <p style={Styles.SegmentBGColor}>
+                        <p style={AppStyles.SegmentBGColor}>
                             <Header
                                 textAlign="left"
                                 size="large"
@@ -156,7 +156,7 @@ class App extends Component {
                         {/* GIF */}
                         <Segment
                             textAlign="center"
-                            style={Styles.SegmentBGColor}
+                            style={AppStyles.SegmentBGColor}
                         >
                             <Header textAlign="center" size="large">
                                 <Header.Content style={{ color: "#FFFFFF" }}>
@@ -168,7 +168,7 @@ class App extends Component {
                         {/* PREVIEW */}
                         <Segment
                             textAlign="center"
-                            style={Styles.SegmentBGColor}
+                            style={AppStyles.SegmentBGColor}
                         >
                             <Header textAlign="center" size="large">
                                 <Header.Content style={{ color: "#FFFFFF" }}>
@@ -185,7 +185,7 @@ class App extends Component {
                                 />
                             ) : null}
                         </Segment>
-                        <Segment style={Styles.SegmentBGColor}>
+                        <Segment style={AppStyles.SegmentBGColor}>
                             <Header
                                 textAlign="center"
                                 size="huge"

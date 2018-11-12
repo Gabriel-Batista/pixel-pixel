@@ -2,7 +2,6 @@ import React from 'react'
 import { Button } from 'semantic-ui-react'
 import { ProjectFetches } from '../../Helpers/ProjectAdapter'
 import { connect } from 'react-redux';
-import Styles from '../../Styles/Styles'
 
 const SaveButton = (props) =>   {
     const saveFrame = () => {
