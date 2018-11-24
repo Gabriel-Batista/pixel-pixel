@@ -196,13 +196,6 @@ class Canvas extends Component {
                 this.drawGrid();
             }
         }
-        //{this.props.canvasWidth + "px"}
-        if (this.props.gridContext !== null) {
-            console.log(
-                "sdfsfsd",
-                this.props.gridContext.canvas.parentNode.clientHeight
-            );
-        }
         return (
             <div>
                 <canvas

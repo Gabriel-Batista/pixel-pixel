@@ -7,7 +7,6 @@ import ToolBoxStyles from '../Styles/ToolBoxStyles'
 
 class ToolBox extends Component   {
     handleChangeComplete = (color) => {
-        console.log(color.rgb)
         this.props.selectColor(color.rgb)
     };
 

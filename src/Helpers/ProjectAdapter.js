@@ -13,7 +13,7 @@ export const ProjectFetches = {
             body: JSON.stringify(data)
         })
         .then(res => {
-            console.log(res.json())
+            res.json()
         })
     },
     fetchProjectFrames: (projectId) => {

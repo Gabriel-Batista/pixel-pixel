@@ -34,10 +34,6 @@ class Login extends Component {
     signup= () => {
         UserFetches.fetchCreateUser({ username: this.state.username, password: this.state.password })
         .then(res => {
-            console.log(res)
-            return res
-        })
-        .then(res => {
             if ('error' in res) {
                 this.props.toggleError('signup')
             }
