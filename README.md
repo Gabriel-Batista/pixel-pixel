@@ -2,14 +2,19 @@
 
 A simple canvas based sprite art creator focused on usability. Draw your sprites, add frames and persist to a database. Frames support onion layers. 
 
+**Check out the hosted project on Heroku: [Pixel-Pixel](https://pixel-pixel.herokuapp.com/)**
+
+![Pixel-Pixel - Editor With Grid](http://i68.tinypic.com/27wymxl.png)
+![Pixel-Pixel - Editor No Grid](http://i64.tinypic.com/izucf5.png)
+
+
 ## Getting Started
 
-1.Clone or download the project to your computer.
-2.Open your terminal and type `npm install && npm start` to start your server.
+1. Clone or download the project to your computer.
 
-To run backend server check link below:
+2. Open your terminal and navigate to project, then type `npm install && npm start` to start your server.
 
-[Pixel-Pixel backend](https://github.com/Gabriel-Batista/pixel-pixel-backend)
+To run backend server check backend repo: [Pixel-Pixel backend](https://github.com/Gabriel-Batista/pixel-pixel-backend)
 
 ## Built With
 
@@ -36,3 +41,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 * (Inspiration) https://www.pixilart.com/draw
 * (Inspiration) https://make8bitart.com/
 
+**Currently looking for my first break in software engineering, if interrested contact me at [gabedbatista@gmail.com](gabedbatista@gmail.com) or check out my LinkedIn at [https://www.linkedin.com/in/gabriel-batista-dev/](https://www.linkedin.com/in/gabriel-batista-dev/)**
