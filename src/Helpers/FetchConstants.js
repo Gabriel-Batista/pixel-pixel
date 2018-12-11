@@ -1,4 +1,4 @@
 export const fetchConsts = {
-  API: "https://pixel-pixel-backend.us-east-1.elasticbeanstalk.com",
-  HEADERS: { "Content-type": "application/json", Accepts: "application/json" }
+  API: "http://pixel-pixel-backend.us-east-1.elasticbeanstalk.com",
+  HEADERS: { "Content-Type": "application/json", Accept: "application/json" }
 };

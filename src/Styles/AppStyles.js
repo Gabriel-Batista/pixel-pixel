@@ -2,6 +2,9 @@ const AppStyles = {
   SegmentBGColor: {
     backgroundColor: "#333333"
   },
+  FrameContainerStyle: {
+    marginTop: "15px"
+  },
   ToolBoxSegmentStyles: {
     display: "inline-block",
     padding: "5%",
