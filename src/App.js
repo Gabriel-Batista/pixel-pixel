@@ -12,7 +12,7 @@ import SaveButton from "./Components/Buttons/SaveButton";
 import GridButton from "./Components/Buttons/GridButton";
 import NewButton from "./Components/Buttons/NewButton";
 
-import { Grid, Segment, Input, Header, Icon } from "semantic-ui-react";
+import { Grid, Segment, Input, Header} from "semantic-ui-react";
 import roundTo from "./Helpers/RoundingHelper.js";
 
 import { ProjectFetches } from "./Helpers/ProjectAdapter";
@@ -53,7 +53,7 @@ class App extends Component {
   render() {
     return (
       <Grid style={{ marginTop: "auto" }} centered columns={16}>
-        <Grid.Row centered compact columns={16}>
+        <Grid.Row centered columns={16}>
           {/* LEFT COLUMN */}
           <Grid.Column width={3} style={{ backgroundColor: "#1F1F1F" }}>
             {/* LOGO */}

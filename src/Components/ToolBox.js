@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { SketchPicker, CirclePicker } from 'react-color'
-import { ProjectFetches } from '../Helpers/ProjectAdapter'
+import { CirclePicker } from 'react-color'
 import { Button, Grid } from 'semantic-ui-react'
 import ToolBoxStyles from '../Styles/ToolBoxStyles'
 

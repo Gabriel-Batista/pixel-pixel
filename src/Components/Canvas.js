@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import UUID from "uuid/v4";
 
-import { Card } from "semantic-ui-react";
-
 import { ProjectFetches } from "../Helpers/ProjectAdapter";
 
 import { getMousePosition } from "../Helpers/MouseTracker";

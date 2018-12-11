@@ -98,6 +98,7 @@ class Frame extends Component {
       tmpImg.src = frame.base64;
       return (
         <FrameCard
+          key={frame.id}
           frame={frame}
           tmpImg={tmpImg}
           deleteFrame={this.deleteFrame}

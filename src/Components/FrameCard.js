@@ -1,7 +1,6 @@
 import React from 'react'
 import FrameCardStyles from '../Styles/FrameCardStyles'
 import { Card, Button } from 'semantic-ui-react'
-import { ProjectFetches } from '../Helpers/ProjectAdapter'
 import { connect } from 'react-redux'
 
 import Preview from './Preview'
