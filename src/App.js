@@ -12,7 +12,7 @@ import SaveButton from "./Components/Buttons/SaveButton";
 import GridButton from "./Components/Buttons/GridButton";
 import NewButton from "./Components/Buttons/NewButton";
 
-import { Grid, Segment, Input, Header} from "semantic-ui-react";
+import { Grid, Segment, Input, Header, Modal, Button } from "semantic-ui-react";
 import roundTo from "./Helpers/RoundingHelper.js";
 
 import { ProjectFetches } from "./Helpers/ProjectAdapter";
@@ -21,6 +21,7 @@ import { UserFetches } from "./Helpers/UserAdapter";
 import AppStyles from "./Styles/AppStyles";
 
 import { connect } from "react-redux";
+import SpriteSheetGen from "./Helpers/SpriteSheetGen";
 
 class App extends Component {
   constructor(props) {
@@ -116,10 +117,7 @@ class App extends Component {
                   size="huge"
                   textAlign="center"
                   onClick={this.toggleTitleEdit}
-                  style={{
-                    color: "#FFFFFF",
-                    margin: "15px 0px"
-                  }}
+                  style={{ color: "#FFFFFF", margin: "15px 0px" }}
                 >
                   {this.props.projectName}
                 </Header>
@@ -140,11 +138,7 @@ class App extends Component {
                   color: "#FFFFFF"
                 }}
               >
-                <Header.Content
-                  style={{
-                    marginTop: "25px"
-                  }}
-                >
+                <Header.Content style={{ marginTop: "25px" }}>
                   FRAMES
                 </Header.Content>
               </Header>
@@ -192,9 +186,30 @@ class App extends Component {
               <NewButton />
               {this.props.status === "logged in" ? <SaveButton /> : null}
               {this.props.status === "logged in" ? <Projects /> : null}
+              <Modal
+              size="large"
+                style={{ backgroundColor: "#333333", overflow: "hidden" }}
+                trigger={
+                  <Button
+                    fluid
+                    size="massive"
+                    style={{
+                      position: "relative",
+                      backgroundColor: "#515151",
+                      color: "#FFFFFF",
+                      marginBottom: "25px"
+                    }}
+                  >
+                    SPRITESHEET
+                  </Button>
+                }
+              >
+                  <SpriteSheetGen />
+              </Modal>
               <GridButton />
               {this.props.status === "logged out" ? <Login /> : <Logout />}
             </Segment>
+            <div id="spritesheet" />
           </Grid.Column>
         </Grid.Row>
       </Grid>
@@ -208,7 +223,8 @@ const mapStateToProps = state => {
     history: state.history.selectedHistory,
     selectedFrame: state.canvas.frameId,
     status: state.users.status,
-    projectName: state.projects.projectName
+    projectName: state.projects.projectName,
+    frames: state.history.frames
   };
 };
 
