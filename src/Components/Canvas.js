@@ -200,7 +200,7 @@ class Canvas extends Component {
                     ref={this.gridRef}
                     style={{
                         position: "absolute",
-                        zIndex: "9999",
+                        zIndex: "2",
                         cursor: this.props.cursor,
                         right: "0",
                         left: "0",
@@ -246,7 +246,7 @@ class Canvas extends Component {
                 <canvas
                     ref={this.sizerRef}
                     style={{
-                        zIndex: "-99999",
+                        zIndex: "-1",
                         right: "0",
                         left: "0",
                         margin: "0 auto"
