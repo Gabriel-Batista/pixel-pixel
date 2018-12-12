@@ -66,6 +66,7 @@ class Projects extends Component {
                     name={project.name}
                     handleClick={() => this.loadProject(project)}
                     base64={project.frames[0].base64}
+                    frames={project.frames.length}
                 />
             );
         });

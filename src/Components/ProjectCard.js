@@ -8,7 +8,7 @@ const ProjectCard = (props) => {
             <Card.Content>
                 <Card.Header>{props.name}</Card.Header>
                 <Card.Meta>
-                    <span>Frames:</span>
+                    <span>Frames: {props.frames}</span>
                 </Card.Meta>
                 <Card.Description></Card.Description>
             </Card.Content>
