@@ -39,7 +39,7 @@ const SaveButton = props => {
       <Modal.Content>
         <p>
           Your project has been save!
-          Click on 'Projects' to view it!
+          Click on 'Open' to view it!
         </p>
       </Modal.Content>
       
